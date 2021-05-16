@@ -1,11 +1,10 @@
-#include "trabajo.h"
-#include "servicio.h"
-#include "date.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "gets.h"
 #include "menu.h"
+#include "trabajo.h"
+#include "servicio.h"
 
 static int work_swapPostionInArray (Work* list, int positionToSwap);
 static int work_newId (void);
@@ -28,8 +27,6 @@ int work_force_init(Work* list, int len, char* brandBike, float wheeledBike, int
         {
         	list[i].id = work_newId();
         	list[i].isEmpty = FALSE;
-        	strncpy(list[i].brandBike, brandBike, STRING_SIZE_BRAND);
-			list[i].wheeledBike = wheeledBike;
 			list[i].idService = idService;
 			strncpy(list[i].date, date, STRING_SIZE_DATE);
         }
@@ -53,28 +50,35 @@ int work_init(Work* list, int len)
 	return ret;
 }
 
-int work_create(Work* listWork, int lenWork, Service* listService, int lenService)
+int work_create(Work* listWork, int lenWork, Service* listService, int lenService, Bike* listBike, int lenBike)
 {
 int ret = -1;
 int index;
 int indexService;
+int idBike;
 Work buffer;
 
-	if (listWork != NULL && lenWork >0 && listService != NULL && lenService >0)
+	if (listWork != NULL && lenWork >0 && listService != NULL && lenService >0 && listBike != NULL && lenBike >0)
 	{
 		if (!work_freePositionIndex (listWork, lenWork, &index))
 		{
-			if (!getString("\nMarca de la bicicleta: ", "\nSupera a la cantidad de cartacteres permitidos", buffer.brandBike, 2, STRING_SIZE_BRAND) &&
-				!getInt ("\nIngrese rodado: ", "\nLos caracteres ingresados no son un numero", &buffer.wheeledBike, 2, 12, 29) &&
-				!service_printArray(listService, lenService) &&
+			idBike = bike_create(listBike, lenBike);
+			if (!service_printArray(listService, lenService) &&
 				!getInt("\nIngrese id de Service del trabajo:", "Ingresar unicamente numeros", &buffer.idService, 2, MIN_ID_SERVICE, MAX_ID_SERVICE) &&
-				(indexService=service_searchId(listService, lenService, buffer.idService))>=0 )
+				(indexService=service_searchId(listService, lenService, buffer.idService))>=0)
 				//&& !getDate("\nFecha: ", "\nSupera a la cantidad de cartacteres permitidos", buffer.date, 2, STRING_SIZE_DATE))
 			{
-				listWork[index]=buffer;
+				listWork[index].idService=buffer.idService;
+				printf("\nidService %d\n", listWork[index].idService);
+				listWork[index].idBike=idBike;
+				printf("\nidBike %d\n", listWork[index].idBike);
 				listWork[index].id=work_newId();
+				printf("\nid %d\n", listWork[index].id);
 				listWork[index].isEmpty=FALSE;
+				printf("\nisEmpty %d\n", listWork[index].isEmpty);
 				ret = index;
+				printf("\nret %d\n", ret);
+				work_printArray(listWork , lenWork, listBike, lenBike);
 			}
 			else
 				{
@@ -88,79 +92,78 @@ Work buffer;
 	}
 	return ret;
 }
+//
+//int work_update(Work* listWork, int lenWork, Service* listService, int lenService, Bike* listBike, int lenBike)
+//{
+//	int ret = -1;
+//	int aux;
+//	int auxIndex;
+//	int indexService;
+//	char auxMenu='s';
+//	Work buffer;
+//
+//	if (listWork != NULL && lenWork >0 && listService != NULL && lenService >0)
+//	{
+//		work_printArray(listWork, lenWork, listBike, lenBike);
+//		if(!getInt("\nIngrese el id del trabajo que desea cambiar: ", "\nIngresar unicamente numeros", &aux, 2, 1, 1000))
+//		{
+//			auxIndex=work_searchId(listWork, lenWork, aux);
+//			if(listWork[auxIndex].isEmpty==FALSE)
+//			{
+//				work_print(listWork,auxIndex, listBike, lenBike);
+//				buffer = listWork[auxIndex];
+//				do
+//				{
+//					switch (menuChangeParameterWork())
+//					{
+//						case 1:
+//							if(!getString("\nMarca de la bicicleta: ", "\nSupera a la cantidad de cartacteres permitidos", buffer.brandBike, 2, STRING_SIZE_BRAND))
+//							{
+//								strncpy(listWork[auxIndex].brandBike, buffer.brandBike, STRING_SIZE_BRAND);
+//								work_print(listWork,auxIndex);
+//							}
+//							break;
+//						case 2:
+//							if(!getInt("\nIngrese id service: ", "\nLos caracteres ingresados no son un numero", &buffer.idService, 2, MIN_ID_SERVICE, MAX_ID_SERVICE) &&
+//							  (indexService=service_searchId(listService, lenService, buffer.idService))>=0)
+//							{
+//								listWork[auxIndex].idService = buffer.idService;
+//								work_print(listWork,auxIndex,  listBike, lenBike);
+//							}
+//							else
+//								{
+//									printf("\nNo existe id Service\n\n");
+//								}
+//							break;
+//						case 3:
+//							auxMenu='n';
+//							break;
+//
+//						default:
+//							printf("\nIngrese opcion correcta\n\n");
+//							break;
+//					}
+//				}while (auxMenu=='s');
+//				work_print(listWork,auxIndex);
+//				ret = 0;
+//			}
+//		}
+//		else
+//			{
+//				printf("\n/****Error - No se encuentran datos del Id ingresado****/\n");
+//			}
+//	}
+//	return ret;
+//}
 
-
-int work_update(Work* listWork, int lenWork, Service* listService, int lenService)
-{
-	int ret = -1;
-	int aux;
-	int auxIndex;
-	int indexService;
-	char auxMenu='s';
-	Work buffer;
-
-	if (listWork != NULL && lenWork >0 && listService != NULL && lenService >0)
-	{
-		work_printArray(listWork, lenWork);
-		if(!getInt("\nIngrese el id del usuario que desea cambiar: ", "\nIngresar unicamente numeros", &aux, 2, 1, 1000))
-		{
-			auxIndex=work_searchId(listWork, lenWork, aux);
-			if(listWork[auxIndex].isEmpty==FALSE)
-			{
-				work_print(listWork,auxIndex);
-				buffer = listWork[auxIndex];
-				do
-				{
-					switch (menuChangeParameterWork())
-					{
-						case 1:
-							if(!getString("\nMarca de la bicicleta: ", "\nSupera a la cantidad de cartacteres permitidos", buffer.brandBike, 2, STRING_SIZE_BRAND))
-							{
-								strncpy(listWork[auxIndex].brandBike, buffer.brandBike, STRING_SIZE_BRAND);
-								work_print(listWork,auxIndex);
-							}
-							break;
-						case 2:
-							if(!getInt("\nIngrese id service: ", "\nLos caracteres ingresados no son un numero", &buffer.idService, 2, MIN_ID_SERVICE, MAX_ID_SERVICE) &&
-							  (indexService=service_searchId(listService, lenService, buffer.idService))>=0)
-							{
-								listWork[auxIndex].idService = buffer.idService;
-								work_print(listWork,auxIndex);
-							}
-							else
-								{
-									printf("\nNo existe id Service\n\n");
-								}
-							break;
-						case 3:
-							auxMenu='n';
-							break;
-
-						default:
-							printf("\nIngrese opcion correcta\n\n");
-							break;
-					}
-				}while (auxMenu=='s');
-				work_print(listWork,auxIndex);
-				ret = 0;
-			}
-		}
-		else
-			{
-				printf("\n/****Error - No se encuentran datos del Id ingresado****/\n");
-			}
-	}
-	return ret;
-}
-
-int work_delete(Work* list, int len)
+int work_delete(Work* list, int len, Bike* listBike, int lenBike)
 {
 	int ret = -1;
 	Work buffer;
 
 	if (list != NULL && len>0)
 	{
-		work_printArray(list, len);
+		work_printArray(list, len,  listBike, lenBike);
 		getInt("\nIngrese el id del trabajo que desea borrar: ", "\nIngresar unicamente numeros", &buffer.id, 2, 1, 30000);
 
 		for (int i = 0 ; i<len ;  i++)
@@ -174,15 +177,17 @@ int work_delete(Work* list, int len)
 	return ret;
 }
 
-int work_print(Work* list, int index)
+int work_print(Work* list, int index, Bike* listBike, int lenBike)
 {
 	int ret = -1;
+	int indexBike;
 
 	if(list != NULL && index >= 0)
 	{
-		if(list[index].isEmpty==FALSE)
+		if(list[index].isEmpty==FALSE &&
+				(indexBike=bike_searchId(listBike, lenBike, index))>=0)
 		{
-			printf("\nID: %d - Marca de la Bicicleta: %s - Rodado: %d - ID del Servicio: %d - Fecha: %s",list[index].id, list[index].brandBike, list[index].wheeledBike, list[index].idService, list[index].date);
+			printf("\nID: %d - Marca de la Bicicleta: %s - Rodado: %d - ID del Servicio: %d - Fecha: %s",list[index].id, listBike[indexBike].brandBike, listBike[indexBike].wheeledBike, list[index].idService, list[index].date);
 			ret = 0;
 		}
 		else
@@ -193,15 +198,19 @@ int work_print(Work* list, int index)
 	return ret;
 }
 
-int work_printArray(Work* list , int len)
+int work_printArray(Work* list , int len, Bike* listBike, int lenBike)
 {
 	int ret = -1;
+	int indexBike;
+
 	if (list != NULL && len >0){
 		for (int i=0 ; i<len ; i++)
 		{
-			if(list[i].isEmpty == FALSE)
+			indexBike=bike_searchId(listBike, lenBike, i);
+			printf("\n/****%d****/\n", indexBike);
+			if(list[i].isEmpty == FALSE && listBike[indexBike].isEmpty ==  FALSE)
 			{
-				printf("\nID: %d - Marca de la Bicicleta: %s - Rodado: %d - ID del Servicio: %d - Fecha: %s",list[i].id, list[i].brandBike, list[i].wheeledBike, list[i].idService, list[i].date);
+				printf("\nID: %d - Marca de la Bicicleta: %s - Rodado: %d - Color: %s - ID del Servicio: %d - Fecha: %s", list[i].id, listBike[indexBike].brandBike, listBike[indexBike].wheeledBike, listBike[indexBike].colour, list[i].idService, list[i].date);
 			}
 		}
 		ret = 0;
@@ -284,7 +293,7 @@ static int work_swapPostionInArray (Work* list, int positionToSwap)
 	return ret;
 }
 
-int work_sortArray(Work* list, int len, int order)
+int work_sortArray(Work* list, int len, int order, Bike* listBike, int lenBike)
 {
 	int ret = -1;
 	int flagSwap;
@@ -296,16 +305,19 @@ int work_sortArray(Work* list, int len, int order)
 			flagSwap = 0;
 			for(int i=0; i<(len-1); i++)
 			{
-				if (order == 0 && (strncmp(list[i].date, list[i+1].date, STRING_SIZE_DATE)>0 ||
-								  (strncmp(list[i].date, list[i+1].date, STRING_SIZE_DATE)==0 && strncmp(list[i].brandBike, list[i+1].brandBike, STRING_SIZE_BRAND)>0)))
+				for(int j=0; j<lenBike; j++)
 				{
-					work_swapPostionInArray (list, i);
-				}
-				else if(order == 1 && (strncmp(list[i].date, list[i+1].date, STRING_SIZE_DATE)<0 ||
-									  (strncmp(list[i].date, list[i+1].date, STRING_SIZE_DATE)==0 && strncmp(list[i].brandBike, list[i+1].brandBike, STRING_SIZE_BRAND)<0)))
+					if ( listBike[j].idBike == list[i].idBike &&   (order == 0 && (strncmp(list[i].date, list[i+1].date, STRING_SIZE_DATE)>0 ||
+									  (strncmp(list[i].date, list[i+1].date, STRING_SIZE_DATE)==0 && strncmp(listBike[j].brandBike, listBike[j+1].brandBike, STRING_SIZE_BRAND)>0)))   )
 					{
 						work_swapPostionInArray (list, i);
 					}
+					else if(  listBike[j].idBike == list[i].idBike &&   (order == 1 && (strncmp(list[i].date, list[i+1].date, STRING_SIZE_DATE)<0 ||
+										  (strncmp(list[i].date, list[i+1].date, STRING_SIZE_DATE)==0 && strncmp(listBike[j].brandBike, listBike[j+1].brandBike, STRING_SIZE_BRAND)<0)))   )
+						{
+							work_swapPostionInArray (list, i);
+						}
+				}
 			}
 		}while(flagSwap);
 		ret = 0;
@@ -314,17 +326,17 @@ int work_sortArray(Work* list, int len, int order)
 }
 
 
-int work_printArraySortByYear(Work* list , int len)
+int work_printArraySortByYear(Work* list , int len, Bike* listBike, int lenBike)
 {
 	int ret = -1;
 	int order = DSC;
 
 	if(list != NULL && len > 0)
 	{
-		if (!work_sortArray(list, len, order))
+		if (!work_sortArray(list, len, order,  listBike, lenBike))
 		{
 
-			work_printArray(list, len);
+			work_printArray(list, len, listBike, lenBike);
 			ret =0;
 		}
 	}

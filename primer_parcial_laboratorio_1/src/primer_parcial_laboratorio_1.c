@@ -13,15 +13,20 @@ int main(void)
 	char resume='s';
 	int flagWork=0;
 	int flagService=0;
+	int flagBike=0;
 	int indexNewWork;
 	float auxTotalValue;
 
 	Service listServices[ARRAY_SIZE_SRV];
 	service_init(listServices, ARRAY_SIZE_SRV);
+
 	Work listWorks[ARRAY_SIZE_WORK];
 	work_init(listWorks, ARRAY_SIZE_WORK);
 
-	controller_force_init(listServices, ARRAY_SIZE_SRV, listWorks, ARRAY_SIZE_WORK, &flagWork, &flagService);
+	Bike listBikes[ARRAY_SIZE_BIKES];
+	bike_init(listBikes, ARRAY_SIZE_BIKES);
+
+	controller_force_init(listServices, ARRAY_SIZE_SRV, listWorks, ARRAY_SIZE_WORK, listBikes, ARRAY_SIZE_BIKES, &flagWork, &flagService, &flagBike);
 
 	do
 	{
@@ -29,40 +34,35 @@ int main(void)
 		{
 											///////////***************TRABAJOS***********************//////////////
 			case 1:
-				indexNewWork = work_create(listWorks, ARRAY_SIZE_WORK, listServices, ARRAY_SIZE_SRV);
-				if(indexNewWork)
-				{
-					work_printArray(listWorks, ARRAY_SIZE_WORK);
+				indexNewWork = work_create(listWorks, ARRAY_SIZE_WORK, listServices, ARRAY_SIZE_SRV, listBikes, ARRAY_SIZE_BIKES);
+
+					work_printArray(listWorks, ARRAY_SIZE_WORK, listBikes, ARRAY_SIZE_BIKES);
 					flagWork++;
-				}
-				else
-				{
-					printf("\nNo se pudo crear el trabajo");
-				}
+
 				break;
 
-			case 2:
-				if(flagWork>0)
-				{
-					if(!work_update(listWorks, ARRAY_SIZE_WORK, listServices, ARRAY_SIZE_SRV))
-					{
-						printf("\nSe pudo modificar correctamente");
-					}
-					else
-					{
-						printf("\nNo se pudo modificar");
-					}
-				}
-				else
-				{
-					printf("\nNo se ingreso ningun cliente\n");
-				}
+//			case 2:
+//				if(flagWork>0)
+//				{
+//					if(!work_update(listWorks, ARRAY_SIZE_WORK, listServices, ARRAY_SIZE_SRV, listBikes, ARRAY_SIZE_BIKES))
+//					{
+//						printf("\nSe pudo modificar correctamente");
+//					}
+//					else
+//					{
+//						printf("\nNo se pudo modificar");
+//					}
+//				}
+//				else
+//				{
+//					printf("\nNo se ingreso ningun cliente\n");
+//				}
 				break;
 
 			case 3:
 				if(flagWork>0)
 				{
-					if(!work_delete(listWorks, ARRAY_SIZE_WORK))
+					if(!work_delete(listWorks, ARRAY_SIZE_WORK, listBikes, ARRAY_SIZE_BIKES))
 					{
 						printf("\nSe borro cliente correctamente");
 					}
@@ -81,7 +81,7 @@ int main(void)
 			case 4:
 				if(flagWork>0)
 				{
-					work_printArraySortByYear(listWorks, ARRAY_SIZE_WORK);
+					work_printArraySortByYear(listWorks, ARRAY_SIZE_WORK, listBikes, ARRAY_SIZE_BIKES);
 				}
 				break;
 
