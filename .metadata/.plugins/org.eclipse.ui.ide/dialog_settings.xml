@@ -7,6 +7,8 @@
 		<item key="WizardProjectsImportPage.STORE_CLOSE_CREATED_PROJECTS_ID" value="false"/>
 		<item key="WizardProjectsImportPage.STORE_HIDE_CONFLICTING_PROJECTS_ID" value="false"/>
 		<list key="WizardProjectsImportPage.STORE_DIRECTORIES">
+			<item value="C:\Users\Administrador\Documents\tp_laboratorio_1\trabajo_practico_3"/>
+			<item value="C:\Users\Administrador\Documents\tp_laboratorio_1\trabajo_practico_2"/>
 			<item value="C:\Users\Administrador\Documents\tp_laboratorio_1\trabajo_practico_1"/>
 		</list>
 		<list key="WizardProjectsImportPage.STORE_ARCHIVES">

@@ -1,9 +1,3 @@
-21:28:36 **** Incremental Build of configuration Debug for project primer_parcial_laboratorio_1 ****
+20:36:14 **** Incremental Build of configuration Debug for project trabajo_practico_3 ****
 Info: Internal Builder is used for build
-gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\bicicleta.o" "..\\src\\bicicleta.c" 
-gcc -o primer_parcial_laboratorio_1.exe "src\\bicicleta.o" "src\\controller.o" "src\\date.o" "src\\gets.o" "src\\is_valid.o" "src\\menu.o" "src\\primer_parcial_laboratorio_1.o" "src\\servicio.o" "src\\trabajo.o" 
-c:/mingw/bin/../lib/gcc/mingw32/9.2.0/../../../../mingw32/bin/ld.exe: cannot open output file primer_parcial_laboratorio_1.exe: Permission denied
-collect2.exe: error: ld returned 1 exit status
-21:28:39 **** Incremental Build of configuration Debug for project primer_parcial_laboratorio_1 ****
-Info: Internal Builder is used for build
-gcc -o primer_parcial_laboratorio_1.exe "src\\bicicleta.o" "src\\controller.o" "src\\date.o" "src\\gets.o" "src\\is_valid.o" "src\\menu.o" "src\\primer_parcial_laboratorio_1.o" "src\\servicio.o" "src\\trabajo.o" 
+gcc "-LC:\\Users\\Administrador\\Documents\\tp_laboratorio_1\\trabajo_practico_3" -o trabajo_practico_3.exe Controller.o Employee.o file_management.o gets.o input.o is_valid.o main.o menu.o -lLinkedList 
