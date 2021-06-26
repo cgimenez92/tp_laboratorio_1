@@ -81,6 +81,7 @@ int getName(char* message, char* errorMessage, char* pResult, int attempts, int 
 	return ret;
 }
 
+
 int getInt(char* message, char* errorMessage, int* pResult, int attempts, int min, int max)
 {
 	int ret = -1;
@@ -160,5 +161,39 @@ int getOperation(char* message, char* errorMessage, char* operation, int attempt
 				ret = -1;
 			}
 		}
+	return ret;
+}
+
+int getYesOrNo(char* message, char* firstErrorMessage, char* secondErrorMessage, char* pChar, int attempts, int stringSize)
+{
+	int ret = -1;
+	char bufferChar[BUFFER_SIZE];
+
+	if(message != NULL && pChar != NULL)
+	{
+		do
+		{
+			printf("%s\n",message);
+			if( !myGets(bufferChar, sizeof(bufferChar)) &&
+				!strnicmp(bufferChar, "S", stringSize))
+			{
+				ret = 0;
+				strncpy(pChar,bufferChar,stringSize);
+				break;
+			}
+			else if(!strnicmp(bufferChar,"N", stringSize))
+				{
+					printf("%s\n",firstErrorMessage);
+					ret = -2;
+					break;
+				}
+				else
+				{
+					printf("%s\n",secondErrorMessage);
+					//ret = -3;
+					attempts--;
+				}
+		}while(attempts >= 0);
+	}
 	return ret;
 }

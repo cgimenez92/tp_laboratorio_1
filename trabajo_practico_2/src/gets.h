@@ -55,4 +55,5 @@ int getFloat (char* message, char* errorMessage, float* pResult, int attempts, f
  */
 int getOperation(char* message, char* errorMessage, char* operation, int attempts);
 
+
 #endif /* GETS_H_ */

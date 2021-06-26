@@ -325,10 +325,31 @@ int employee_avgSalary(Employee* list, int len, float* avgValue)
 			ret = 0;
 			for (; i<len; i++)
 			{
-				buffer += list[i].salary;
+				if(list[i].isEmpty == FALSE)
+					buffer += list[i].salary;
 			}
 			*avgValue = buffer/len;
 		}
+	return ret;
+}
+
+int employee_aboveAvgSalary(Employee* list, int len)
+{
+	int ret = -1;
+	float avgValue;
+	int i;
+
+	if(!employee_avgSalary(list, len, &avgValue))
+	{
+		for (i=0 ; i<len ; i++)
+		{
+			if(list[i].salary > avgValue && list[i].isEmpty == FALSE)
+			{
+				printf("\nB - Asalariados que superan el promedio: \nID: %d - Nombre: %s - Apellido: %s - Sueldo: %.2f - Sector: %d\n",list[i].id, list[i].name, list[i].lastName, list[i].salary, list[i].sector);
+			}
+		}
+	}
+
 	return ret;
 }
 
@@ -343,11 +364,16 @@ int employee_sumSalary(Employee* list, int len, float* totalValue)
 			ret = 0;
 			for (; i<len; i++)
 			{
-				buffer += list[i].salary;
+				if(list[i].isEmpty == FALSE)
+					buffer += list[i].salary;
 			}
 			*totalValue = buffer;
 		}
 	return ret;
 }
+
+
+
+
 
 

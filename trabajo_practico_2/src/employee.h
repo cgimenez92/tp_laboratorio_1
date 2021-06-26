@@ -112,6 +112,8 @@
 	int employee_sortArray(Employee* list, int len, int order);
 
 	int employee_avgSalary(Employee* list, int len, float* avgValue);
+	int employee_aboveAvgSalary(Employee* list, int len);
+
 	int employee_sumSalary(Employee* list, int len, float* totalValue);
 
 #endif /* EMPLOYEE_H_ */

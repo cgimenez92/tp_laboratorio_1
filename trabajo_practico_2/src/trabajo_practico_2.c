@@ -26,19 +26,17 @@ int main(void)
 	int flag=0;
 	float avg;
 	float totalSalary;
-	int i;
 	Employee listEmployees[ARRAY_SIZE];
 	employee_init(listEmployees, ARRAY_SIZE);
-/*
- * BORRAR Para probar un listado de empleados
- *
+//BORRAR Para probar un listado de empleados
+
 	employee_force_init(listEmployees, ARRAY_SIZE, "Cristian", "Gimenez",123.15 ,1);
 	employee_force_init(listEmployees, ARRAY_SIZE, "Tito", "Puente", 13245.2131 ,2);
 	employee_force_init(listEmployees, ARRAY_SIZE, "Cristian", "Jimeno", 521.465 , 2);
 	employee_force_init(listEmployees, ARRAY_SIZE, "Alberto", "Terrrero", 2345.54 , 5);
 	employee_force_init(listEmployees, ARRAY_SIZE, "Homero", "Simpsons", 145.31, 4);
 
-*/
+
 	do
 	{
 		switch (menu())
@@ -88,21 +86,17 @@ int main(void)
 					if(!employee_sortArray(listEmployees, ARRAY_SIZE, ASC))
 					{
 						employee_printArray(listEmployees, ARRAY_SIZE);
+
 						if(!employee_avgSalary(listEmployees, ARRAY_SIZE, &avg))
 						{
-							printf("\nA - El promedio de salarial es: %.2f\n",avg);
-
-							for (i=0 ; i<ARRAY_SIZE && listEmployees[i].isEmpty == FALSE; i++)
-							{
-								if(listEmployees[i].salary > avg)
-								{
-									printf("\nB - Asalariados que superan el promedio: \nID: %d - Nombre: %s - Apellido: %s - Sueldo: %f - Sector: %d\n",listEmployees[i].id, listEmployees[i].name, listEmployees[i].lastName, listEmployees[i].salary, listEmployees[i].sector);
-								}
-							}
+							printf("\nA - El promedio salarial es: %.2f\n", avg);
 						}
+
+						employee_aboveAvgSalary(listEmployees, ARRAY_SIZE);
+
 						if(!employee_sumSalary(listEmployees, ARRAY_SIZE, &totalSalary))
 						{
-							printf("\nC - La suma total de la masa salarial es de:  %.2f\n",totalSalary);
+							printf("\nC - La suma total de la masa salarial es de:  %.2f\n", totalSalary);
 						}
 					}
 				}
@@ -112,6 +106,7 @@ int main(void)
 				}
 				break;
 			case 5:
+				printf("\nAdios!\n");
 				seguir='n';
 				break;
 

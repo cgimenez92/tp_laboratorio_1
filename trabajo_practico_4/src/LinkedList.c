@@ -59,7 +59,7 @@ static Node* getNode(LinkedList* this, int nodeIndex)
 	{
 		pAux = this->pFirstNode;
 
-		while(pAux!=NULL) // Busco que ->pNextNode != NULL ya que si es NULL, es el nodo final de la linkedlist.
+		while(pAux!=NULL)
 		{
 			if(i == nodeIndex)
 			{
@@ -68,7 +68,6 @@ static Node* getNode(LinkedList* this, int nodeIndex)
 			pAux=pAux->pNextNode;
 			i++;
 		}
-
 	}
 
     return pAux;
@@ -111,7 +110,7 @@ static int addNode(LinkedList* this, int nodeIndex, void* pElement)
 
 		if(nodeIndex==0)
 		{
-			auxNode->pNextNode = this->pFirstNode; 	 // Se pone ->pFirstNode ya que es la posicion de memoria del noda a desplazar.
+			auxNode->pNextNode = this->pFirstNode;
 			this->pFirstNode = auxNode;
 			this->size++;
 			ret=0;
@@ -474,6 +473,7 @@ LinkedList* ll_subList(LinkedList* this, int from, int to)
 {
     LinkedList* auxList=NULL;
     void* auxElement=NULL;
+    int i;
 
     if(this!=NULL && from>=0 && to>from && to<=ll_len(this))
     {
@@ -481,11 +481,12 @@ LinkedList* ll_subList(LinkedList* this, int from, int to)
 
     	if(auxList!=NULL)
     	{
-			for(int i=from; i<=to; i++)
+			for(i=from; i<=to; i++)
 			{
 				auxElement=ll_get(this, i);
 				ll_add(auxList, auxElement);
 			}
+			auxList->size = i;
     	}
     }
 
