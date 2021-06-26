@@ -318,6 +318,7 @@ int employee_avgSalary(Employee* list, int len, float* avgValue)
 {
 	int ret = -1;
 	int buffer=0;
+	int countEmployees=0;
 	int i=0;
 
 	if(list != NULL && len > 0)
@@ -326,9 +327,12 @@ int employee_avgSalary(Employee* list, int len, float* avgValue)
 			for (; i<len; i++)
 			{
 				if(list[i].isEmpty == FALSE)
+				{
 					buffer += list[i].salary;
+					countEmployees++;
+				}
 			}
-			*avgValue = buffer/len;
+			*avgValue = buffer/countEmployees;
 		}
 	return ret;
 }
@@ -365,7 +369,9 @@ int employee_sumSalary(Employee* list, int len, float* totalValue)
 			for (; i<len; i++)
 			{
 				if(list[i].isEmpty == FALSE)
+				{
 					buffer += list[i].salary;
+				}
 			}
 			*totalValue = buffer;
 		}

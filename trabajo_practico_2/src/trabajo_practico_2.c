@@ -30,12 +30,14 @@ int main(void)
 	employee_init(listEmployees, ARRAY_SIZE);
 //BORRAR Para probar un listado de empleados
 
-	employee_force_init(listEmployees, ARRAY_SIZE, "Cristian", "Gimenez",123.15 ,1);
-	employee_force_init(listEmployees, ARRAY_SIZE, "Tito", "Puente", 13245.2131 ,2);
-	employee_force_init(listEmployees, ARRAY_SIZE, "Cristian", "Jimeno", 521.465 , 2);
-	employee_force_init(listEmployees, ARRAY_SIZE, "Alberto", "Terrrero", 2345.54 , 5);
-	employee_force_init(listEmployees, ARRAY_SIZE, "Homero", "Simpsons", 145.31, 4);
-
+	if(!employee_force_init(listEmployees, ARRAY_SIZE, "Mariela", "Gomez",20000,2))
+	{
+		employee_force_init(listEmployees, ARRAY_SIZE, "Juan", "Martinez", 30000 ,3);
+		employee_force_init(listEmployees, ARRAY_SIZE, "Mauro", "Gomez", 18000, 1);
+		employee_force_init(listEmployees, ARRAY_SIZE, "Yolanda", "Alberdi", 32000, 1);
+		employee_force_init(listEmployees, ARRAY_SIZE, "Fabio", "Benitez", 45000, 2);
+		flag++;
+	}
 
 	do
 	{
