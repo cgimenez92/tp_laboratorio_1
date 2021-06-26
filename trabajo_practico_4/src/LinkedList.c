@@ -344,12 +344,11 @@ int ll_isEmpty(LinkedList* this)
     int ret=-1;
     if(this!=NULL)
     {
+    	ret=0;
     	if(this->pFirstNode==NULL && this->size==0)
     	{
     		ret=1;
     	}
-
-    	ret=0;
     }
     return ret;
 }
@@ -384,3 +383,178 @@ int ll_push(LinkedList* this, int index, void* pElement)
                             (pElement) Si funciono correctamente
  *
  */
+void* ll_pop(LinkedList* this, int index)
+{
+    void* ret=NULL;
+    Node* auxNode=NULL;
+
+	if(this!=NULL && index>=0 && index<ll_len(this))
+	{
+		auxNode=getNode(this, index);
+
+		if(auxNode!=NULL)
+		{
+			ret=auxNode->pElement;
+			ll_remove(this, index);
+		}
+
+	}
+    return ret;
+}
+
+/** \brief  Determina si la lista contiene o no el elemento pasado como parametro
+ *
+ * \param this LinkedList* Puntero a la lista
+ * \param pElement void* Puntero del elemento a verificar
+ * \return int Retorna  (-1) Error: si el puntero a la lista es NULL
+                        ( 1) Si contiene el elemento
+                        ( 0) si No contiene el elemento
+*/
+int ll_contains(LinkedList* this, void* pElement)
+{
+    int ret=-1;
+	if(this!=NULL)
+	{
+		if(ll_indexOf(this, pElement)>=0)
+		{
+			ret=1;
+		}
+		else
+			{
+				ret=0;
+			}
+	}
+    return ret;
+}
+
+
+/** \brief  Determina si todos los elementos de la lista (this2)
+            estan contenidos en la lista (this)
+ *
+ * \param this LinkedList* Puntero a la lista
+ * \param this2 LinkedList* Puntero a la lista
+ * \return int Retorna  (-1) Error: si alguno de los punteros a las listas son NULL
+                        ( 1) Si los elementos de (this2) estan contenidos en la lista (this)
+                        ( 0) si los elementos de (this2) NO estan contenidos en la lista (this)
+*/
+int ll_containsAll(LinkedList* this, LinkedList* this2)
+{
+    int ret=-1;
+    void* auxElement=NULL;
+
+    if(this!=NULL && this2!=NULL)
+    {
+    	ret=1; //Consultar por "error" la logica indica que deberia ir despues del else de all_contains
+
+		for(int i=0; i<ll_len(this2); i++)
+		{
+			auxElement=ll_get(this2, i);
+
+			if(!ll_contains(this, auxElement))
+			{
+				ret=0;
+				break;
+			}
+		}
+    }
+    return ret;
+}
+
+/** \brief Crea y retorna una nueva lista con los elementos indicados
+ *
+ * \param pList LinkedList* Puntero a la lista
+ * \param from int Indice desde el cual se copian los elementos en la nueva lista
+ * \param to int Indice hasta el cual se copian los elementos en la nueva lista (no incluido)
+ * \return LinkedList* Retorna  (NULL) Error: si el puntero a la listas es NULL
+                                o (si el indice from es menor a 0 o mayor al len de la lista)
+                                o (si el indice to es menor o igual a from o mayor al len de la lista)
+                         (puntero a la nueva lista) Si ok
+*/
+LinkedList* ll_subList(LinkedList* this, int from, int to)
+{
+    LinkedList* auxList=NULL;
+    void* auxElement=NULL;
+
+    if(this!=NULL && from>=0 && to>from && to<=ll_len(this))
+    {
+    	auxList=ll_newLinkedList();
+
+    	if(auxList!=NULL)
+    	{
+			for(int i=from; i<=to; i++)
+			{
+				auxElement=ll_get(this, i);
+				ll_add(auxList, auxElement);
+			}
+    	}
+    }
+
+    return auxList;
+}
+
+/** \brief Crea y retorna una nueva lista con los elementos de la lista pasada como parametro
+ *
+ * \param pList LinkedList* Puntero a la lista
+ * \return LinkedList* Retorna  (NULL) Error: si el puntero a la listas es NULL
+                                (puntero a la nueva lista) Si ok
+*/
+LinkedList* ll_clone(LinkedList* this)
+{
+    LinkedList* auxList=NULL;
+
+    if(this!=NULL)
+    {
+    	auxList=ll_subList(this, 0, ll_len(this));
+    }
+
+    return auxList;
+}
+
+
+/** \brief Ordena los elementos de la lista utilizando la funcion criterio recibida como parametro
+ * \param pList LinkedList* Puntero a la lista
+ * \param pFunc (*pFunc) Puntero a la funcion criterio
+ * \param order int  [1] Indica orden ascendente - [0] Indica orden descendente
+ * \return int Retorna  (-1) Error: si el puntero a la listas es NULL
+                                ( 0) Si ok
+ */
+int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order)
+{
+    int ret=-1;
+    void* aux=NULL;
+    void* aux2=NULL;
+    int flagSwap;
+
+	if(this!=NULL && pFunc!=NULL && ll_len(this) > 0 && (order==0 || order==1))
+	{
+		do
+		{
+			flagSwap = 0;
+
+			for(int i=0; i<ll_len(this)-1; i++)
+			{
+				aux=ll_get(this, i);//pElementA
+				aux2=ll_get(this, i+1);//pElementB
+
+				if (order == 0 && (pFunc((aux),(aux2))<0))
+				{
+					ll_set(this, i+1, aux);//pElementA
+					ll_set(this, i, aux2);//pElementB
+					flagSwap = 1;
+				}
+				else if(order == 1 && (pFunc((aux),(aux2))>0))
+						{
+							ll_set(this, i+1, aux);//pElementA
+							ll_set(this, i, aux2);//pElementB
+							flagSwap = 1;
+						}
+			 }
+
+		}while(flagSwap);
+
+		ret=0;
+	}
+
+    return ret;
+}
+
