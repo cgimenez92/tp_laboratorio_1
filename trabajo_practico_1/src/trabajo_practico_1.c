@@ -13,176 +13,125 @@
 #include <ctype.h>
 #include "calculator_operations.h"
 #include "utn.h"
+#include "menu.h"
 
 int main(void)
 {
 		setbuf(stdout,NULL);
 	  	char questionContinue = 'N';
-	  	int flagOk;
 	    int option;
+	    int flagFirstOperator=-1;
+	    int flagSecondOperator=-1;
+	    int flagOperations=-1;
+
 	    float firstOperator;
 	    float secondOperator;
-	    float result;
+
+		float sumResult;
+		float restResult;
+		float divideResult;
+		float multiplyResult;
 	    unsigned long int firstResultFactorial;
 	    unsigned long int secondResultFactorial;
 
+	    float result;
+
 	    do
 	    {
-			flagOk = getIntWithLimits("\n1- Ingresar 1er operando (A)\n2- Ingresar 2do operando (B)\n3- Calcular la suma (A+B)\n4- Calcular la resta (A-B)\n5- Calcular la division (A/B)\n"
-					"6- Calcular la multiplicacion (A*B)\n7- Calcular el factorial (A!)\n8- Calcular todas las operaciones\n9- Salir\n\nSeleccione una opcion: ",
-					"Ingresar una opcion entre [1-9]", "Ingresar un caracter numerico", &option, 3, 1, 9);
+	    	option = menu(&firstOperator, &secondOperator);
 
-			if(!flagOk)
+			switch(option)
 			{
-				switch(option)
+			case 1:
+				flagFirstOperator = getFloat ("Ingrese primer numero: ", "Ingrese un caracter numerico: ", &firstOperator, 3);
+				break;
+
+			case 2:
+				flagSecondOperator = getFloat ("Ingrese segundo numero: ", "Ingrese un caracter numerico: ", &secondOperator, 3);
+				break;
+
+			case 3:
+
+			    if(flagFirstOperator == -1 || flagSecondOperator == -1)
+			    {
+			    	 printf("\n\nNo se puede realizar la opcion sin ingresar los dos operandos, ingreselos y vuelva a intentar\n\n");
+			    }
+			    else
+					{
+						fSumOperation(firstOperator, secondOperator, &sumResult);
+						fRestOperation(firstOperator, secondOperator, &restResult);
+						fDivideOperation(firstOperator, secondOperator, &divideResult);
+						fMultiplyOperation(firstOperator, secondOperator, &multiplyResult);
+						fFactorial(firstOperator,  &firstResultFactorial);
+						fFactorial(secondOperator,  &secondResultFactorial);
+						flagOperations = 0;
+						printf("\n\nSe ha realizado el calculo de las operaciones\n\n");
+					}
+			    break;
+
+			case 4:
+				//Suma
+				if(!fSumOperation(firstOperator, secondOperator, &result))
 				{
-				case 1:
-					getFloat ("Ingrese primer numero: ", "Ingrese un caracter numerico: ", &firstOperator, 3);
-					break;
-
-				case 2:
-					getFloat ("Ingrese segundo numero: ", "Ingrese un caracter numerico: ", &secondOperator, 3);
-					break;
-
-				case 3:
-
-					if(!fSumOperation(firstOperator, secondOperator, &result))
-					{
-						printf("\nEl resultado de la suma es %.2f \n", result);
-					}
-					else
-						{
-						printf("\nError\n");
-						}
-					break;
-
-				case 4:
-					if(!fRestOperation(firstOperator, secondOperator, &result))
-					{
-						printf("\nEl resultado de la resta es %.2f \n", result);
-					}
-					else
-						{
-						printf("\nError\n");
-						}
-					break;
-
-				case 5:
-					if(secondOperator == 0)
-					{
-						printf("\nNo es posible realizar Division por 0\nFavor de ingresar el segundo operando distinto de 0\n\n");
-					}
-					else
-						{
-							fDivideOperation(firstOperator, secondOperator, &result);
-							printf("\nEl resultado de la division es %.2f \n", result);
-						}
-					break;
-
-				case 6:
-					if(!fMultiplyOperation(firstOperator, secondOperator, &result))
-					{
-						printf("\nEl resultado de la multiplicacion es %.2f \n", result);
-					}
-					else
-						{
-						printf("\nError\n");
-						}
-					break;
-
-				case 7:
-					if(!fFactorial(firstOperator, secondOperator, &firstResultFactorial, &secondResultFactorial))
-					{
-						printf("\nEl resultado factorial del primer operador es %ld \n", firstResultFactorial);
-						printf("\nEl resultado factorial del segundo operador es %ld \n", secondResultFactorial);
-					}
-					else
-						{
-							if(fFactorial(firstOperator, secondOperator, &firstResultFactorial, &secondResultFactorial)== -2)
-								printf("\nPrimer operador menor a 0, no es posible realizar el calculo\n");
-							if(fFactorial(firstOperator, secondOperator, &firstResultFactorial, &secondResultFactorial)== -3)
-								printf("\nSegundo operador menor a 0, no es posible realizar el calculo \n");
-						}
-					break;
-
-				case 8:
-					//Suma
-					if(!fSumOperation(firstOperator, secondOperator, &result))
-					{
-						printf("\nEl resultado de la suma es %.2f \n", result);
-					}
-					else
-						{
-						printf("\nError\n");
-						}
-
-					//Resta
-					if(!fRestOperation(firstOperator, secondOperator, &result))
-					{
-						printf("\nEl resultado de la resta es %.2f \n", result);
-					}
-					else
-						{
-						printf("\nError\n");
-						}
-
-					//Division
-					if(secondOperator == 0)
-					{
-						printf("\nNo es posible realizar Division por 0\nFavor de ingresar el segundo operando distinto de 0\n\n");
-					}
-					else
-						{
-							fDivideOperation(firstOperator, secondOperator, &result);
-							printf("\nEl resultado de la division es %.2f \n", result);
-						}
-
-					//Multiplicacion
-					if(!fMultiplyOperation(firstOperator, secondOperator, &result))
-					{
-						printf("\nEl resultado de la multiplicacion es %.2f \n", result);
-					}
-					else
-						{
-						printf("\nError\n");
-						}
-
-					//Factorial
-					if(!fFactorial(firstOperator, secondOperator, &firstResultFactorial, &secondResultFactorial))
-					{
-						printf("\nEl resultado factorial del primer operador es %lu \n", firstResultFactorial);
-						printf("\nEl resultado factorial del segundo operador es %lu \n", secondResultFactorial);
-					}
-					else
-						{
-							if(fFactorial(firstOperator, secondOperator, &firstResultFactorial, &secondResultFactorial)== -2)
-								printf("\nPrimer operador menor a 0, no es posible realizar el calculo\n");
-							if(fFactorial(firstOperator, secondOperator, &firstResultFactorial, &secondResultFactorial)== -3)
-								printf("\nSegundo operador menor a 0, no es posible realizar el calculo \n");
-						}
-					break;
-
-				case 9:
-					printf("\n *** Adios! *** \n");
-					questionContinue = 'N';
-					break;
+					printf("\nEl resultado de la suma es %.2f \n", result);
 				}
+				else
+					{
+					printf("\nError\n");
+					}
+
+				//Resta
+				if(!fRestOperation(firstOperator, secondOperator, &result))
+				{
+					printf("\nEl resultado de la resta es %.2f \n", result);
+				}
+				else
+					{
+					printf("\nError\n");
+					}
+
+				//Division
+				if(secondOperator == 0)
+				{
+					printf("\nNo es posible realizar Division por 0\nFavor de ingresar el segundo operando distinto de 0\n\n");
+				}
+				else
+					{
+						fDivideOperation(firstOperator, secondOperator, &result);
+						printf("\nEl resultado de la division es %.2f \n", result);
+					}
+
+				//Multiplicacion
+				if(!fMultiplyOperation(firstOperator, secondOperator, &result))
+				{
+					printf("\nEl resultado de la multiplicacion es %.2f \n", result);
+				}
+				else
+					{
+					printf("\nError\n");
+					}
+
+				//Factorial
+				if(!fFactorial(firstOperator,  &firstResultFactorial))
+				{
+					printf("\nEl resultado factorial del primer operador es %ld \n", firstResultFactorial);
+					printf("\nEl resultado factorial del segundo operador es %ld \n", secondResultFactorial);
+				}
+				else
+					{
+						if(fFactorial(firstOperator,  &firstResultFactorial)== -2)
+							printf("\nPrimer operador menor a 0, no es posible realizar el calculo\n");
+						if(fFactorial(secondOperator,  &secondResultFactorial)== -3)
+							printf("\nSegundo operador menor a 0, no es posible realizar el calculo \n");
+					}
+				break;
+
+			case 5:
+				printf("\n *** Adios! *** \n");
+				break;
 			}
-			else
-				{
-					getChar("\n *** Se acabaron los intentos, volver a ejecutar la calculadora *** \n¿Continuar? - S/N \n", &questionContinue);
 
-					if(toupper(questionContinue) == 'S')
-					{
-						continue;
-					}
-					else
-						{
-							break;
-						}
-				}
-
-	    } while(toupper(questionContinue) == 'S' || option != 9);
+	    } while(option != 5);
 
 	    return EXIT_SUCCESS;
 }

@@ -45,6 +45,11 @@ int fDivideOperation(float firstOperator, float secondOperator, float* pResult)
 		ret =0;
 	}
 
+	if(secondOperator == 0)
+	{
+		ret =-2;
+	}
+
 	return ret;
 }
 
@@ -63,36 +68,25 @@ return ret;
 }
 
 
-int fFactorial(float firstOperator, float secondOperator, unsigned long int* pResultFirstOperator, unsigned long int* pResultSecondOperator)
+int fFactorial(float operator, unsigned long int* pResult)
 {
 	int ret = -1;
 
-	if(pResultFirstOperator != NULL && pResultSecondOperator != NULL && firstOperator >= 0 && secondOperator >= 0)
+	if(pResult != NULL && operator >= 0)
 	{
-		for(*pResultFirstOperator=1; firstOperator>0; firstOperator--)
+		for(*pResult=1; operator>0; operator--)
 			{
-				*pResultFirstOperator = (unsigned long int)*pResultFirstOperator * ((unsigned long int)firstOperator);
-			}
-
-		for(*pResultSecondOperator=1; secondOperator>0; secondOperator--)
-			{
-				*pResultSecondOperator = (unsigned long int)*pResultSecondOperator * ((unsigned long int)secondOperator);
+				*pResult = (unsigned long int)*pResult * ((unsigned long int)operator);
 			}
 		ret = 0;
 	}
 	else
 		{
-			if(firstOperator < 0)
+			if(operator < 0)
 			{
 				ret = -2;
-			}
-
-			if(secondOperator < 0)
-			{
-				ret = -3;
 			}
 		}
 
 	return ret;
 }
-

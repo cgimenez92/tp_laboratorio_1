@@ -54,6 +54,5 @@ int fMultiplyOperation(float firstOperator, float secondOperator, float* pResult
  * \param float* pResultSecondOperator puntero al espacio de memoria donde se dejara el valor obtenido del factorial del segundo valor
  * \return (0) Puntero pResult no es nulo (Ok)/ (-1) Puntero pResult es nulo (Error) / (-2) firstOperator menor a 0 (Error) / (-3) secondOperator menor a 0 (Error)
  */
-int fFactorial(float firstOperator, float secondOperator, unsigned long int* pResultFirstOperator, unsigned long int* pResultSecondOperator);
-
+int fFactorial(float operator, unsigned long int* pResult);
 #endif /* CALCULATOR_OPERATIONS_H_ */
