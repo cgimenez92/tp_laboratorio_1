@@ -49,7 +49,7 @@ int main(void)
 
 			case 3:
 
-			    if(flagFirstOperator == -1 || flagSecondOperator == -1)
+			    if(flagFirstOperator != 0 || flagSecondOperator != 0)
 			    {
 			    	 printf("\n\nNo se puede realizar la opcion sin ingresar los dos operandos, ingreselos y vuelva a intentar\n\n");
 			    }
@@ -69,7 +69,7 @@ int main(void)
 			case 4:
 				if(flagOperations != 0)
 				{
-					printf("\n No se pueden mostrar los resultados sin realizar anteriormente el calculo de las operaciones (3- Calcular todas las operaciones) \n");
+					printf("\n\nNo se pueden mostrar los resultados sin realizar anteriormente el calculo de las operaciones (3- Calcular todas las operaciones)\n\n");
 				}
 				else
 					{
@@ -88,7 +88,7 @@ int main(void)
 							}
 
 						//Multiplicacion
-						printf("d)El resultado de la multiplicacion es %.2f \n", multiplyResult);
+						printf("d) El resultado de la multiplicacion es %.2f \n", multiplyResult);
 
 						//Factorial
 						if(firstOperator >= 0 && firstOperator <= 12)
