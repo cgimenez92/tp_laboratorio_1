@@ -27,11 +27,6 @@ int menu(float* firstOperator, float* secondOperator)
 	"\n d) Calcular la multiplicacion (A*B)"
 	"\n e) Calcular el factorial (A!)"
 	"\n4- Informar resultados"
-	"\n a) El resultado de A+B es: r"
-	"\n b) El resultado de A-B es: r"
-	"\n c) El resultado de A/B es: r o No es posible dividir por cero"
-	"\n d) El resultado de A*B es: r"
-	"\n e) El factorial de A es: r1 y El factorial de B es: r2"
 	"\n5- Salir"
 	"\n\nSeleccione una opcion: ",
 	"Ingresar una opcion entre [1-5]", "Ingresar un caracter numerico", &option, 3, 1, 5);

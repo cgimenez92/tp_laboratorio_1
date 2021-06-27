@@ -18,7 +18,6 @@
 int main(void)
 {
 		setbuf(stdout,NULL);
-	  	char questionContinue = 'N';
 	    int option;
 	    int flagFirstOperator=-1;
 	    int flagSecondOperator=-1;
@@ -33,8 +32,6 @@ int main(void)
 		float multiplyResult;
 	    unsigned long int firstResultFactorial;
 	    unsigned long int secondResultFactorial;
-
-	    float result;
 
 	    do
 	    {
@@ -70,59 +67,47 @@ int main(void)
 			    break;
 
 			case 4:
-				//Suma
-				if(!fSumOperation(firstOperator, secondOperator, &result))
+				if(flagOperations != 0)
 				{
-					printf("\nEl resultado de la suma es %.2f \n", result);
+					printf("\n No se pueden mostrar los resultados sin realizar anteriormente el calculo de las operaciones (3- Calcular todas las operaciones) \n");
 				}
 				else
 					{
-					printf("\nError\n");
-					}
+						//Suma
+						printf("\na) El resultado de A+B es: %.2f \n", sumResult);
+						//Resta
+						printf("b) El resultado de A-B es: %.2f \n", restResult);
+						//Division
+						if(secondOperator == 0)
+						{
+							printf("\nNo es posible realizar Division por 0\nFavor de ingresar el segundo operando distinto de 0\n\n");
+						}
+						else
+							{
+								printf("c) El resultado de A/B es: %.2f \n", divideResult);
+							}
 
-				//Resta
-				if(!fRestOperation(firstOperator, secondOperator, &result))
-				{
-					printf("\nEl resultado de la resta es %.2f \n", result);
-				}
-				else
-					{
-					printf("\nError\n");
-					}
+						//Multiplicacion
+						printf("d)El resultado de la multiplicacion es %.2f \n", multiplyResult);
 
-				//Division
-				if(secondOperator == 0)
-				{
-					printf("\nNo es posible realizar Division por 0\nFavor de ingresar el segundo operando distinto de 0\n\n");
-				}
-				else
-					{
-						fDivideOperation(firstOperator, secondOperator, &result);
-						printf("\nEl resultado de la division es %.2f \n", result);
-					}
+						//Factorial
+						if(firstOperator >= 0 && firstOperator <= 12)
+						{
+							printf("e) El factorial de A es: %ld\n", firstResultFactorial);
+						}
+						else
+							{
+								printf("e) No se puede calcular el factorial de A \n");
+							}
 
-				//Multiplicacion
-				if(!fMultiplyOperation(firstOperator, secondOperator, &result))
-				{
-					printf("\nEl resultado de la multiplicacion es %.2f \n", result);
-				}
-				else
-					{
-					printf("\nError\n");
-					}
-
-				//Factorial
-				if(!fFactorial(firstOperator,  &firstResultFactorial))
-				{
-					printf("\nEl resultado factorial del primer operador es %ld \n", firstResultFactorial);
-					printf("\nEl resultado factorial del segundo operador es %ld \n", secondResultFactorial);
-				}
-				else
-					{
-						if(fFactorial(firstOperator,  &firstResultFactorial)== -2)
-							printf("\nPrimer operador menor a 0, no es posible realizar el calculo\n");
-						if(fFactorial(secondOperator,  &secondResultFactorial)== -3)
-							printf("\nSegundo operador menor a 0, no es posible realizar el calculo \n");
+						if(secondOperator >= 0 && secondOperator <= 12)
+						{
+							printf("e) El factorial de B es: %ld\n", secondResultFactorial);
+						}
+						else
+							{
+								printf("e) No se puede calcular el factorial de B \n");
+							}
 					}
 				break;
 
