@@ -16,5 +16,6 @@ typedef struct
 } Date;
 
 int  isLeapYear(int year);
+int isValidDate(Date *validDate);
 
 #endif /* DATE_H_ */

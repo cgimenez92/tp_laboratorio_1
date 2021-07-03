@@ -5,6 +5,8 @@
 #include <ctype.h>
 #include "is_valid.h"
 #include "date.h"
+#include "gets.h"
+
 #define BUFFER_SIZE 4096
 
 static int myGets(char* string, int arraySize);
@@ -277,24 +279,21 @@ int getString(char* message, char* errorMessageLenght, char* pResult, int attemp
     return ret;
 }
 
-int getDate(char* message, Date* date, int attempts, int stringSize)
+int getDate(char* message, Date* date, int attempts)
 {
 	Date bufferDate;
 	int ret = -1;
 
 	if(	message != NULL
 		&& date != NULL
-		&& attempts >= 0
-		&& stringSize > 0)
+		&& attempts >= 0)
 	{
 		do
 		{
 			printf("%s\n",message);
+			scanf("%d/%d/%d",&bufferDate.dd,&bufferDate.mm,&bufferDate.yyyy);
 
-			if(!getCharToInt(&bufferDate.dd)
-				&& !getCharToInt(&bufferDate.mm)
-				&& !getCharToInt(&bufferDate.yyyy)
-			    && isValidDate(bufferDate)>0)
+			if(isValidDate(&bufferDate)>0)
 			{
 				ret = 0;
 				*date = bufferDate;
@@ -302,7 +301,8 @@ int getDate(char* message, Date* date, int attempts, int stringSize)
 			}
 			else
 				{
-				 	errorsInGetDate("firstErrorMessage", "secondErrorMessage", "thirdErrorMessage", "fourthErrorMessage", "fifthErrorMessage", "sixthErrorMessage", bufferDate);
+				 	errorsInGetDate("Dia fuera del rango [1-31]\n", "Mes fuera del rango [1-12]\n", "Anio fuera del rango [1900-2500]\n",
+				 					"Los anios bisiestos no pueden tener mas de 29 dias en Febrero", "Los anios NO bisiestos no pueden tener mas de 28 dias en Febrero", "Los meses de Abril - Junio - Septiembre - Noviembre no pueden tener mas de 30 dias\n", bufferDate);
 					attempts--;
 				}
 		}while(attempts >= 0);
@@ -310,20 +310,18 @@ int getDate(char* message, Date* date, int attempts, int stringSize)
 	return ret;
 }
 
-int errorsInGetDate(char* firstErrorMessage, char* secondErrorMessage, char* thirdErrorMessage, char* fourthErrorMessage, char* fifthErrorMessage, char* sixthErrorMessage, Date* date)
+int errorsInGetDate(char* firstErrorMessage, char* secondErrorMessage, char* thirdErrorMessage, char* fourthErrorMessage, char* fifthErrorMessage, char* sixthErrorMessage, Date date)
 {
 	int ret = -1;
 
 	if(	firstErrorMessage != NULL &&
-
 		secondErrorMessage != NULL &&
 		thirdErrorMessage != NULL &&
 		fourthErrorMessage != NULL &&
-		fifthErrorMessage != NULL &&
-		date != NULL)
+		fifthErrorMessage != NULL)
 	{
 
-		switch (isValidDate(date))
+		switch (isValidDate(&date))
 		{
 
 		case -1:

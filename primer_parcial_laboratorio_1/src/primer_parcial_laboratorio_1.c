@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "servicio.h"
-#include "trabajo.h"
 #include "controller.h"
 #include "menu.h"
+#include "service.h"
+#include "brand.h"
+#include "work.h"
 // #include "report.h"
 
 int main(void)
@@ -14,6 +15,7 @@ int main(void)
 	int flagWork=0;
 	int flagService=0;
 	int flagBike=0;
+	int flagBrand=0;
 	int indexNewWork;
 	float auxTotalValue;
 
@@ -26,6 +28,9 @@ int main(void)
 	Bike listBikes[ARRAY_SIZE_BIKES];
 	bike_init(listBikes, ARRAY_SIZE_BIKES);
 
+	Brand listBrands[ARRAY_SIZE_BRANDS];
+	brand_init(listBrands, ARRAY_SIZE_BRANDS);
+
 	controller_force_init(listServices, ARRAY_SIZE_SRV, listWorks, ARRAY_SIZE_WORK, listBikes, ARRAY_SIZE_BIKES, &flagWork, &flagService, &flagBike);
 
 	do
@@ -36,7 +41,7 @@ int main(void)
 			case 1:
 				indexNewWork = work_create(listWorks, ARRAY_SIZE_WORK, listServices, ARRAY_SIZE_SRV, listBikes, ARRAY_SIZE_BIKES);
 
-					work_printArray(listWorks, ARRAY_SIZE_WORK, listBikes, ARRAY_SIZE_BIKES);
+					//work_printArray(listWorks, ARRAY_SIZE_WORK, listBikes, ARRAY_SIZE_BIKES);
 					flagWork++;
 
 				break;

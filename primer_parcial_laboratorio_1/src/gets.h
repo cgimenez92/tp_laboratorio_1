@@ -83,8 +83,7 @@ int getCuit(char* message, char* firstErrorMessage, char* secondErrorMessage, ch
  */
 int getString(char* message, char* errorMessageLenght, char* pResult, int attempts, int stringSize);
 
-int getDate(char* message, Date* date, int attempts, int stringSize);
-
-int errorsInGetDate(char* firstErrorMessage, char* secondErrorMessage, char* thirdErrorMessage, char* fourthErrorMessage, char* fifthErrorMessage, char* sixthErrorMessage, Date* date);
+int getDate(char* message, Date* date, int attempts);
+int errorsInGetDate(char* firstErrorMessage, char* secondErrorMessage, char* thirdErrorMessage, char* fourthErrorMessage, char* fifthErrorMessage, char* sixthErrorMessage, Date date);
 
 #endif /* GETS_H_ */

@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "servicio.h"
-#include "trabajo.h"
 #include "menu.h"
+#include "service.h"
+#include "work.h"
+#include "bike.h"
 
 
 void controller_force_init(Service* listService, int lenService, Work* listWork, int lenWork, Bike* listBike, int lenBike, int* flagWork, int* flagService, int* flagBike)

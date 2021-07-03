@@ -28,11 +28,17 @@ int isValidDate(Date *validDate)
     {
         if (isLeapYear(validDate->yyyy))
 		{
-			return (validDate->dd <= 29);
+        	if(validDate->dd > 29)
+        	{
+        		ret = -4;
+        	}
 		}
 		else
 			{
-				return (validDate->dd <= 28);
+				if(validDate->dd > 28)
+				{
+					ret = -5;
+				}
 			}
     }
     //handle months which has only 30 days
