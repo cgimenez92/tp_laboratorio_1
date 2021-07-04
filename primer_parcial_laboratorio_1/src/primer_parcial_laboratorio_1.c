@@ -4,9 +4,9 @@
 #include "controller.h"
 #include "menu.h"
 #include "service.h"
-#include "brand.h"
 #include "work.h"
-// #include "report.h"
+#include "wheel.h"
+#include "reports.h"
 
 int main(void)
 {
@@ -15,7 +15,6 @@ int main(void)
 	int flagWork=0;
 	int flagService=0;
 	int flagBike=0;
-	int flagBrand=0;
 	int indexNewWork;
 	float auxTotalValue;
 
@@ -28,10 +27,10 @@ int main(void)
 	Bike listBikes[ARRAY_SIZE_BIKES];
 	bike_init(listBikes, ARRAY_SIZE_BIKES);
 
-	Brand listBrands[ARRAY_SIZE_BRANDS];
-	brand_init(listBrands, ARRAY_SIZE_BRANDS);
+	Wheel listWheel[ARRAY_SIZE_WHEELS];
+	wheel_init(listWheel, ARRAY_SIZE_WHEELS);
 
-	controller_force_init(listServices, ARRAY_SIZE_SRV, listWorks, ARRAY_SIZE_WORK, listBikes, ARRAY_SIZE_BIKES, &flagWork, &flagService, &flagBike);
+	controller_force_init(listServices, ARRAY_SIZE_SRV, listWorks, ARRAY_SIZE_WORK, listBikes, ARRAY_SIZE_BIKES, listWheel, ARRAY_SIZE_WHEELS, &flagWork, &flagService, &flagBike);
 
 	do
 	{
@@ -39,35 +38,35 @@ int main(void)
 		{
 											///////////***************TRABAJOS***********************//////////////
 			case 1:
-				indexNewWork = work_create(listWorks, ARRAY_SIZE_WORK, listServices, ARRAY_SIZE_SRV, listBikes, ARRAY_SIZE_BIKES);
+				indexNewWork = work_create(listWorks, ARRAY_SIZE_WORK, listServices, ARRAY_SIZE_SRV, listBikes, ARRAY_SIZE_BIKES, listWheel, ARRAY_SIZE_WHEELS);
 
 					//work_printArray(listWorks, ARRAY_SIZE_WORK, listBikes, ARRAY_SIZE_BIKES);
 					flagWork++;
 
 				break;
 
-//			case 2:
-//				if(flagWork>0)
-//				{
-//					if(!work_update(listWorks, ARRAY_SIZE_WORK, listServices, ARRAY_SIZE_SRV, listBikes, ARRAY_SIZE_BIKES))
-//					{
-//						printf("\nSe pudo modificar correctamente");
-//					}
-//					else
-//					{
-//						printf("\nNo se pudo modificar");
-//					}
-//				}
-//				else
-//				{
-//					printf("\nNo se ingreso ningun cliente\n");
-//				}
+			case 2:
+				if(flagWork>0)
+				{
+					if(!work_update(listWorks, ARRAY_SIZE_WORK, listServices, ARRAY_SIZE_SRV, listBikes, ARRAY_SIZE_BIKES, listWheel, ARRAY_SIZE_WHEELS))
+					{
+						printf("\nSe pudo modificar correctamente");
+					}
+					else
+					{
+						printf("\nNo se pudo modificar");
+					}
+				}
+				else
+					{
+						printf("\nNo se ingreso ningun trabajo\n");
+					}
 				break;
 
 			case 3:
 				if(flagWork>0)
 				{
-					if(!work_delete(listWorks, ARRAY_SIZE_WORK, listServices, ARRAY_SIZE_SRV, listBikes, ARRAY_SIZE_BIKES))
+					if(!work_delete(listWorks, ARRAY_SIZE_WORK, listServices, ARRAY_SIZE_SRV, listBikes, ARRAY_SIZE_BIKES, listWheel, ARRAY_SIZE_WHEELS))
 					{
 						printf("\nSe borro cliente correctamente");
 					}
@@ -77,17 +76,20 @@ int main(void)
 					}
 				}
 				else
-				{
-					printf("\nNo se ingreso ningun cliente\n");
-				}
-
+					{
+						printf("\nNo se ingreso ningun trabajo\n");
+					}
 				break;
 
 			case 4:
 				if(flagWork>0)
 				{
-					work_printArraySortByYear(listWorks, ARRAY_SIZE_WORK, listServices, ARRAY_SIZE_SRV, listBikes, ARRAY_SIZE_BIKES);
+					work_printArraySortByYear(listWorks, ARRAY_SIZE_WORK, listServices, ARRAY_SIZE_SRV, listBikes, ARRAY_SIZE_BIKES, listWheel, ARRAY_SIZE_WHEELS);
 				}
+				else
+					{
+						printf("\nNo se ingreso ningun trabajo\n");
+					}
 				break;
 
 			case 5:
@@ -95,92 +97,57 @@ int main(void)
 				{
 					service_printArray(listServices, ARRAY_SIZE_SRV);
 				}
+				else
+					{
+						printf("\nNo se ingreso ningun service\n");
+					}
 				break;
 
 			case 6:
-				if(flagService>0 && !priceTotalPerService(listServices, ARRAY_SIZE_SRV, &auxTotalValue))
+				if(flagService>0 && !priceTotalPerService(listWorks, ARRAY_SIZE_WORK, listServices, ARRAY_SIZE_SRV, &auxTotalValue))
 				{
-					printf("\nSe pudo modificar correctamente %.2f", auxTotalValue);
+					printf("\nEl valor total de los servicios realizados es de: %.2f", auxTotalValue);
 				}
+				else
+					{
+						printf("\nNo se ingreso ningun service\n");
+					}
 				break;
 
-
-
-//									/////////////***************************INFORMES**********************************//////////////
-//			case 8:
-//				do
+//			case 7:
+//				if(flagWork>0)
 //				{
-//					switch (menuReports())
+//					work_printArraySortByBrand(listWorks, ARRAY_SIZE_WORK, listServices, ARRAY_SIZE_SRV, listBikes, ARRAY_SIZE_BIKES, listWheel, ARRAY_SIZE_WHEELS);
+//				}
+//				else
 //					{
-//					case 1:
-//						if(flagCustomer>0)
-//						{
-//							report_customerCountPublications(listPublications, ARRAY_SIZE_ADS, listCustomers, ARRAY_SIZE_CUSTOMER, ALL_MAX);
-//						}
-//						break;
-//					case 2:
-//						if(flagCustomer>0)
-//						{
-//							report_qPublicationsPaused(listPublications, ARRAY_SIZE_ADS);
-//						}
-//						break;
-//					case 3:
-//						if(flagCustomer>0)
-//						{
-//							report_itemNumberWithMorePublications(listPublications, ARRAY_SIZE_ADS);
-//						}
-//						break;
-//					case 4:
-//						if(flagCustomer>0)
-//						{
-//							report_customerCountPublications(listPublications, ARRAY_SIZE_ADS, listCustomers, ARRAY_SIZE_CUSTOMER, ACTIVE);
-//						}
-//						break;
-//					case 5:
-//						if(flagCustomer>0)
-//						{
-//							report_customerCountPublications(listPublications, ARRAY_SIZE_ADS, listCustomers, ARRAY_SIZE_CUSTOMER, PAUSED);
-//						}
-//						break;
-//					case 6:
-//						if(flagCustomer>0)
-//						{
-//							report_sortArrayByItemNumber(listPublications, ARRAY_SIZE_ADS);
-//						}
-//						break;
-//					case 7:
-//						if(flagCustomer>0)
-//						{
-//							report_qPublications(listPublications, ARRAY_SIZE_ADS, &bufferPublication);
-//						}
-//						break;
-//					case 8:
-//						if(flagCustomer>0)
-//						{
-//							report_customerCountPublications(listPublications, ARRAY_SIZE_ADS, listCustomers, ARRAY_SIZE_CUSTOMER, ALL_MIN);
-//						}
-//						break;
-//					case 9:
-//						if(flagCustomer>0)
-//						{
-//							report_qPublicationsPerItemNumber(listPublications, ARRAY_SIZE_ADS,  &bufferItemNumber, &bufferPublication);
-//						}
-//						break;
-//
-//					case 10:
-//						if(flagCustomer>0)
-//						{
-//							report_qPublicationsPerCustomer(listPublications, ARRAY_SIZE_ADS, listCustomers, ARRAY_SIZE_CUSTOMER, &bufferPublication);
-//						}
-//						break;
-//					case 11:
-//						resumeReports='n';
-//						break;
+//						printf("\nNo se ingreso ningun trabajo\n");
 //					}
-//				}while (resumeReports=='s');
 //				break;
 
-			case 7:
+			case 8:
+				if(flagWork>0)
+				{
+					report_servicesWithMoreWorks(listWorks, ARRAY_SIZE_WORK);
+				}
+				else
+					{
+						printf("\nNo se ingreso ningun trabajo\n");
+					}
+				break;
+
+			case 9:
+				if(flagWork>0)
+				{
+					report_test(listWorks, ARRAY_SIZE_WORK, listServices, ARRAY_SIZE_SRV, listBikes, ARRAY_SIZE_BIKES, listWheel, ARRAY_SIZE_WHEELS);
+				}
+				else
+					{
+						printf("\nNo se ingreso ningun trabajo\n");
+					}
+				break;
+
+			case 13:
 				resume='n';
 				break;
 

@@ -1,10 +1,10 @@
-#include "service.h"
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "gets.h"
 #include "menu.h"
+#include "work.h"
+#include "service.h"
 
 static int service_newId (void);
 
@@ -252,21 +252,4 @@ int service_searchId(Service* list, int len, int id)
     return ret;
 }
 
-int priceTotalPerService(Service* list,  int len, float* totalValue)
-{
-	int ret = -1;
-	int buffer=0;
-	int i;
 
-	if(list != NULL && len > 0)
-	{
-		ret = 0;
-		for (i=0; i<len && list[i].isEmpty == FALSE; i++)
-		{
-			buffer += list[i].price;
-		}
-	}
-
-	*totalValue = buffer;
-	return ret;
-}

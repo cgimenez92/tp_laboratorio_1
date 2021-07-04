@@ -51,7 +51,4 @@ int service_freePositionIndex(Service* list, int len, int* pIndex);
 
 int service_searchId(Service* list, int len, int id);
 
-int priceTotalPerService(Service* list,  int len, float* totalValue);
-
-
 #endif /* SERVICE_H_ */
