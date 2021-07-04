@@ -26,4 +26,12 @@ void controller_force_init(Service* listService, int lenService, Work* listWork,
 	bike_force_init(listBike, lenBike, "Stanley", 26,  "Amarillo");
 	bike_force_init(listBike, lenBike, "AyR", 22,  "Purpura");
 
+	work_force_init(listWork, lenWork,26,20001, 23,12,1990);
+	work_force_init(listWork, lenWork,26,20002, 12,01,1994);
+	work_force_init(listWork, lenWork,28,20002, 03,07,2020);
+	work_force_init(listWork, lenWork,30,20004, 26,05,2020);
+	work_force_init(listWork, lenWork,30,20003, 21,12,2020);
+
+
+
 }

@@ -29,21 +29,22 @@
 		int id;
 		int isEmpty;
 		int idBike;
+		int idBrand;
 		int idService;
 		Date ddmmyyyy;
 	} Work;
 
-	int work_force_init(Work* list, int len, char* brandBike, float wheeledBike, int idService, Date date);
+	int work_force_init(Work* list, int len, int idBike, int idService, int day, int month, int year);
 	int work_init(Work* list, int len);
 	int work_create(Work* listWork, int lenWork, Service* listService, int lenService, Bike* listBike, int lenBike);
 	//int work_update(Work* listWork, int lenWork, Service* listService, int lenService);
-	int work_delete(Work* list, int len, Bike* listBike, int lenBike);
-	int work_print(Work* list, int index, Bike* listBike, int lenBike);
-	int work_printArray(Work* list, int len/*, Bike* listBike, int lenBike*/);
+	int work_delete(Work* listWork, int lenWork, Service* listService, int lenService, Bike* listBike, int lenBike);
+	int work_print(Work* listWork, Service* listService, int lenService, Bike* listBike, int lenBike, int index);
+	int work_printArray(Work* listWork, int lenWork, Service* listService, int lenService, Bike* listBike, int lenBike);
 	int work_freePosition(Work* list, int len);
 	int work_freePositionIndex(Work* list, int len, int* pIndex);
 	int work_searchId(Work* list, int len, int id);
 	int work_sortArray(Work* list, int len, int order, Bike* listBike, int lenBike);
-	int work_printArraySortByYear(Work* list , int len, Bike* listBike, int lenBike);
+	int work_printArraySortByYear(Work* listWork, int lenWork, Service* listService, int lenService, Bike* listBike, int lenBike);
 
 #endif /* WORK_H_ */

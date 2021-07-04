@@ -12,12 +12,12 @@ static int work_newId (void);
 
 static int work_newId(void)
 {
-	static int id = 1;
+	static int id = 0;
 	id = id+1;
 	return id;
 }
 
-int work_force_init(Work* list, int len, char* brandBike, float wheeledBike, int idService, Date date)
+int work_force_init(Work* list, int len, int idBike, int idService, int day, int month, int year)
 {
     int ret = -1;
     int i;
@@ -28,8 +28,11 @@ int work_force_init(Work* list, int len, char* brandBike, float wheeledBike, int
         {
         	list[i].id = work_newId();
         	list[i].isEmpty = FALSE;
+        	list[i].idBike = idBike;
 			list[i].idService = idService;
-			list[i].ddmmyyyy = date;
+			list[i].ddmmyyyy.dd = day;
+			list[i].ddmmyyyy.mm = month;
+			list[i].ddmmyyyy.yyyy = year;
         }
         ret = 0;
     }
@@ -57,7 +60,7 @@ int ret = -1;
 int index;
 int indexService;
 int indexBike;
-char bufferBrand [STRING_SIZE_BRAND];
+char bufferBrand[STRING_SIZE_BRAND];
 Work buffer;
 
 	if (listWork != NULL && lenWork >0 && listService != NULL && lenService >0 && listBike != NULL && lenBike >0)
@@ -84,7 +87,7 @@ Work buffer;
 				listWork[index].ddmmyyyy = buffer.ddmmyyyy;
 				ret = index;
 				//printf("\nret %d\n", ret);
-				work_printArray(listWork, lenWork);
+				work_printArray(listWork, lenWork, listService, lenService, listBike, lenBike);
 			}
 			else
 				{
@@ -162,64 +165,74 @@ Work buffer;
 //	return ret;
 //}
 
-int work_delete(Work* list, int len, Bike* listBike, int lenBike)
+int work_delete(Work* listWork, int lenWork, Service* listService, int lenService, Bike* listBike, int lenBike)
 {
 	int ret = -1;
 	Work buffer;
 
-	if (list != NULL && len>0)
+	if (listWork != NULL && lenWork >0 && listService != NULL && lenService >0 && listBike != NULL && lenBike >0)
 	{
-		//work_printArray(list, len,  listBike, lenBike);
+		work_printArray(listWork, lenWork, listService, lenService, listBike, lenBike);
 		getInt("\nIngrese el id del trabajo que desea borrar: ", "\nIngresar unicamente numeros", &buffer.id, 2, 1, 30000);
 
-		for (int i = 0 ; i<len ;  i++)
+		for (int i = 0 ; i<lenWork ;  i++)
 		{
-			if (buffer.id == list[i].id)
+			if (buffer.id == listWork[i].id)
 			{
-				list[i].isEmpty = TRUE;
+				listWork[i].isEmpty = TRUE;
+				ret = 0;
 			}
 		}
 	}
 	return ret;
 }
 
-int work_print(Work* list, int index, Bike* listBike, int lenBike)
+int work_print(Work* listWork, Service* listService, int lenService, Bike* listBike, int lenBike, int index)
 {
 	int ret = -1;
 	int indexBike;
+	int indexService;
 
-	if(list != NULL && index >= 0)
+	if(listWork != NULL && listService != NULL && lenService >0 && listBike != NULL && lenBike >0 && index >= 0)
 	{
-		if(list[index].isEmpty==FALSE &&
-				(indexBike=bike_searchId(listBike, lenBike, index))>=0)
+		indexBike = bike_searchId(listBike, lenBike, listWork[index].idBike);
+		indexService = service_searchId(listService, lenService, listWork[index].idService);
+
+		if(listWork[index].isEmpty == FALSE)
 		{
-		//printf("\nID: %d - Marca de la Bicicleta: %s - Rodado: %d - ID del Servicio: %d - Fecha: %s",list[index].id, listBike[indexBike].brandBike, listBike[indexBike].wheeledBike, list[index].idService, list[index].date);
+			printf("\nID del Trabajo: %d - Fecha: %d/%d/%d - Descripcion del Service: %s - Precio: %.2f - Marca Bicicleta: %s - Rodado: %d - Color: %s",
+					listWork[index].id, listWork[index].ddmmyyyy.dd, listWork[index].ddmmyyyy.mm, listWork[index].ddmmyyyy.yyyy,
+					listService[indexService].description, listService[indexService].price,
+					listBike[indexBike].brandBike, listBike[indexBike].wheeledBike, listBike[indexBike].colour);
 			ret = 0;
 		}
 		else
 		{
-			printf("\n/****Error - No existe el cliente****/\n");
+			printf("\n/****Error - No existe el trabajo****/\n");
 		}
 	}
 	return ret;
 }
 
-
-//REvisra PrintArray
-
-int work_printArray(Work* list, int len/*, Bike* listBike, int lenBike*/)
+int work_printArray(Work* listWork, int lenWork, Service* listService, int lenService, Bike* listBike, int lenBike)
 {
 	int ret = -1;
 	int indexBike;
+	int indexService;
 
-	if (list != NULL && len >0){
-		for (int i=0 ; i<len ; i++)
+	if (listWork != NULL && lenWork >0 && listService != NULL && lenService >0 && listBike != NULL && lenBike >0)
+	{
+		for (int i=0 ; i<lenWork ; i++)
 		{
-			//indexBike = bike_searchId(listBike, lenBike, i);
+			indexBike = bike_searchId(listBike, lenBike, listWork[i].idBike);
+			indexService = service_searchId(listService, lenService, listWork[i].idService);
 
-			if(list[i].isEmpty == FALSE)
+			if(listWork[i].isEmpty == FALSE)
 			{
-				printf("\nID: %d - Id Bicicleta: %d - ID del Servicio: %d - Fecha: %d/%d/%d", list[i].id, list[i].idBike, list[i].idService, list[i].ddmmyyyy.dd, list[i].ddmmyyyy.mm, list[i].ddmmyyyy.yyyy);
+				printf("\nID del Trabajo: %d - Fecha: %d/%d/%d - Descripcion del Service: %s - Precio: %.2f - Marca Bicicleta: %s - Rodado: %d - Color: %s",
+						listWork[i].id, listWork[i].ddmmyyyy.dd, listWork[i].ddmmyyyy.mm, listWork[i].ddmmyyyy.yyyy,
+						listService[indexService].description, listService[indexService].price,
+						listBike[indexBike].brandBike, listBike[indexBike].wheeledBike, listBike[indexBike].colour);
 			}
 		}
 		ret = 0;
@@ -305,47 +318,45 @@ static int work_swapPostionInArray (Work* list, int positionToSwap)
 int work_sortArray(Work* list, int len, int order, Bike* listBike, int lenBike)
 {
 	int ret = -1;
-//	int flagSwap;
-//
-//	if(list != NULL && len > 0 && (order == 0 || order == 1))
-//	{
-//		do
-//		{
-//			flagSwap = 0;
-//			for(int i=0; i<(len-1); i++)
-//			{
-//				for(int j=0; j<lenBike; j++)
-//				{
-//					if ( listBike[j].idBike == list[i].idBike &&   (order == 0 && (strncmp(list[i].date, list[i+1].date, STRING_SIZE_DATE)>0 ||
-//									  (strncmp(list[i].date, list[i+1].date, STRING_SIZE_DATE)==0 && strncmp(listBike[j].brandBike, listBike[j+1].brandBike, STRING_SIZE_BRAND)>0)))   )
-//					{
-//						work_swapPostionInArray (list, i);
-//					}
-//					else if(  listBike[j].idBike == list[i].idBike &&   (order == 1 && (strncmp(list[i].date, list[i+1].date, STRING_SIZE_DATE)<0 ||
-//										  (strncmp(list[i].date, list[i+1].date, STRING_SIZE_DATE)==0 && strncmp(listBike[j].brandBike, listBike[j+1].brandBike, STRING_SIZE_BRAND)<0)))   )
-//						{
-//							work_swapPostionInArray (list, i);
-//						}
-//				}
-//			}
-//		}while(flagSwap);
+	int flagSwap;
+
+	if(list != NULL && len > 0 && (order == 0 || order == 1))
+	{
+		do
+		{
+			flagSwap = 0;
+			for(int i=0; i<(len-1); i++)
+			{
+				if ((order == 0 && (list[i].ddmmyyyy.yyyy > list[i+1].ddmmyyyy.yyyy))
+				   || (list[i].ddmmyyyy.yyyy == list[i+1].ddmmyyyy.yyyy  && list[i].idBike > list[i+1].idBike))
+				{
+					work_swapPostionInArray (list, i);
+					flagSwap = 1;
+				}
+				else if ((order == 1 && (list[i].ddmmyyyy.yyyy < list[i+1].ddmmyyyy.yyyy))
+						|| (list[i].ddmmyyyy.yyyy == list[i+1].ddmmyyyy.yyyy  && list[i].idBike > list[i+1].idBike))
+					{
+						work_swapPostionInArray (list, i);
+						flagSwap = 1;
+					}
+			}
+		}while(flagSwap);
 		ret = 0;
-//	}
+	}
 	return ret;
 }
 
 
-int work_printArraySortByYear(Work* list , int len, Bike* listBike, int lenBike)
+int work_printArraySortByYear(Work* listWork, int lenWork, Service* listService, int lenService, Bike* listBike, int lenBike)
 {
 	int ret = -1;
-	int order = DSC;
 
-	if(list != NULL && len > 0)
+	if(listWork != NULL && lenWork >0 && listService != NULL && lenService >0 && listBike != NULL && lenBike >0)
 	{
-		if (!work_sortArray(list, len, order,  listBike, lenBike))
+		if(!work_sortArray(listWork, lenWork, ASC,  listBike, lenBike))
 		{
 
-			//work_printArray(list, len, listBike, lenBike);
+			work_printArray(listWork, lenWork, listService, lenService, listBike, lenBike);
 			ret =0;
 		}
 	}

@@ -67,7 +67,7 @@ int main(void)
 			case 3:
 				if(flagWork>0)
 				{
-					if(!work_delete(listWorks, ARRAY_SIZE_WORK, listBikes, ARRAY_SIZE_BIKES))
+					if(!work_delete(listWorks, ARRAY_SIZE_WORK, listServices, ARRAY_SIZE_SRV, listBikes, ARRAY_SIZE_BIKES))
 					{
 						printf("\nSe borro cliente correctamente");
 					}
@@ -86,7 +86,7 @@ int main(void)
 			case 4:
 				if(flagWork>0)
 				{
-					work_printArraySortByYear(listWorks, ARRAY_SIZE_WORK, listBikes, ARRAY_SIZE_BIKES);
+					work_printArraySortByYear(listWorks, ARRAY_SIZE_WORK, listServices, ARRAY_SIZE_SRV, listBikes, ARRAY_SIZE_BIKES);
 				}
 				break;
 

@@ -1,2 +1,4 @@
-Info: Nothing to build for primer_parcial_laboratorio_1
-Info: Nothing to build for primer_parcial_laboratorio_1
+00:19:53 **** Incremental Build of configuration Debug for project primer_parcial_laboratorio_1 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\work.o" "..\\src\\work.c" 
+gcc -o primer_parcial_laboratorio_1.exe "src\\bike.o" "src\\brand.o" "src\\controller.o" "src\\date.o" "src\\gets.o" "src\\is_valid.o" "src\\menu.o" "src\\primer_parcial_laboratorio_1.o" "src\\service.o" "src\\work.o" 
