@@ -14,6 +14,8 @@ int menu()
 			"\n8-El o los servicios con más trabajos realizados"
 			"\n9-Listado de servicios con los datos de las bicicletas que se lo realizaron"
 			"\n10-La cantidad de biciletas de color Rojo que realizaron un servicio elegido por el usuario"
+			"\n11-La cantidad de biciletas de color Rojo que realizaron un servicio elegido por el usuario"
+			"\n12-Cantidad de bicicletas atendidas por rodados"
 			"\n13-Salir\n\nIngrese opcion: ", "\n/****Error  - Ingresar opcion de 1-7****/\n", &option, 2, 1, 13);
 	fflush(stdin);
     return option;

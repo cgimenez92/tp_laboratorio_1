@@ -24,20 +24,20 @@ void controller_force_init(Service* listService, int lenService, Work* listWork,
 
 	bike_force_init(listBike, lenBike, "UTN", "Rojo");
 	bike_force_init(listBike, lenBike, "Best Bike", "Azul");
-	bike_force_init(listBike, lenBike, "Stanley", "Amarillo");
+	bike_force_init(listBike, lenBike, "Stanley", "Rojo");
 	bike_force_init(listBike, lenBike, "AyR", "Purpura");
 
-	wheel_force_init(listWheel, lenWheel, 26, "Buena");
-	wheel_force_init(listWheel, lenWheel, 26, "Regular");
-	wheel_force_init(listWheel, lenWheel, 26, "Mala");
-	wheel_force_init(listWheel, lenWheel, 20, "Buena");
-	wheel_force_init(listWheel, lenWheel, 20, "Regular");
-	wheel_force_init(listWheel, lenWheel, 20, "Mala");
+	wheel_force_init(listWheel, lenWheel, 14);
+	wheel_force_init(listWheel, lenWheel, 16);
+	wheel_force_init(listWheel, lenWheel, 18);
+	wheel_force_init(listWheel, lenWheel, 20);
+	wheel_force_init(listWheel, lenWheel, 22);
+	wheel_force_init(listWheel, lenWheel, 24);;
 
 
-	work_force_init(listWork, lenWork,26, 1, 20001, 23,12,1990);
-	work_force_init(listWork, lenWork,26, 1, 20002, 12,01,1994);
+	work_force_init(listWork, lenWork,26, 2, 20001, 23,12,1990);
+	work_force_init(listWork, lenWork,27, 1, 20002, 12,01,1994);
 	work_force_init(listWork, lenWork,28, 3, 20002, 03,07,2020);
-	work_force_init(listWork, lenWork,30, 4, 20004, 26,05,2020);
-	work_force_init(listWork, lenWork,30, 2, 20004, 21,12,2020);
+	work_force_init(listWork, lenWork,30, 1, 20004, 26,05,2020);
+	work_force_init(listWork, lenWork,29, 2, 20004, 21,12,2020);
 }

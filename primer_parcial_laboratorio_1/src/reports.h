@@ -14,10 +14,12 @@
 #include "service.h"
 
 int priceTotalPerService(Work* listWork, int lenWork, Service* listService, int lenService, float* totalValue);
-//int work_sortArrayByBrand(Work* list, int len, int order, Bike* listBike, int lenBike);
-//int work_printArraySortByBrand(Work* listWork, int lenWork, Service* listService, int lenService, Bike* listBike, int lenBike, Wheel* listWheel, int lenWheel);
-int report_test(Work* listWork, int lenWork, Service* listService, int lenService, Bike* listBike, int lenBike, Wheel* listWheel, int lenWheel);
+int report_worksByBrand(Work* listWork, int lenWork, Service* listService, int lenService, Bike* listBike, int lenBike, Wheel* listWheel, int lenWheel);
+int report_servicesBikes(Work* listWork, int lenWork, Service* listService, int lenService, Bike* listBike, int lenBike, Wheel* listWheel, int lenWheel);
 int maxValueQProduct(Work* listWork, int lenWork, int* maxValue);
 int report_servicesWithMoreWorks (Work* listWork, int lenWork);
-
+int report_qBikesPerService(Work* listWork, int lenWork, Service* listService, int lenService, Bike* listBike, int lenBike, char* colour);
+int maxWorkPerWheelSize(Work* listWork, int lenWork, int* maxValue);
+int report_wheelsWithMoreWorks (Work* listWork, int lenWork, Wheel* listWheel, int lenWheel);
+int report_wheelsBikes(Work* listWork, int lenWork, Service* listService, int lenService, Bike* listBike, int lenBike, Wheel* listWheel, int lenWheel);
 #endif /* REPORTS_H_ */

@@ -114,16 +114,16 @@ int main(void)
 					}
 				break;
 
-//			case 7:
-//				if(flagWork>0)
-//				{
-//					work_printArraySortByBrand(listWorks, ARRAY_SIZE_WORK, listServices, ARRAY_SIZE_SRV, listBikes, ARRAY_SIZE_BIKES, listWheel, ARRAY_SIZE_WHEELS);
-//				}
-//				else
-//					{
-//						printf("\nNo se ingreso ningun trabajo\n");
-//					}
-//				break;
+			case 7:
+				if(flagWork>0)
+				{
+					report_worksByBrand(listWorks, ARRAY_SIZE_WORK, listServices, ARRAY_SIZE_SRV, listBikes, ARRAY_SIZE_BIKES, listWheel, ARRAY_SIZE_WHEELS);
+				}
+				else
+					{
+						printf("\nNo se ingreso ningun trabajo\n");
+					}
+				break;
 
 			case 8:
 				if(flagWork>0)
@@ -139,7 +139,40 @@ int main(void)
 			case 9:
 				if(flagWork>0)
 				{
-					report_test(listWorks, ARRAY_SIZE_WORK, listServices, ARRAY_SIZE_SRV, listBikes, ARRAY_SIZE_BIKES, listWheel, ARRAY_SIZE_WHEELS);
+					report_servicesBikes(listWorks, ARRAY_SIZE_WORK, listServices, ARRAY_SIZE_SRV, listBikes, ARRAY_SIZE_BIKES, listWheel, ARRAY_SIZE_WHEELS);
+				}
+				else
+					{
+						printf("\nNo se ingreso ningun trabajo\n");
+					}
+				break;
+
+			case 10:
+				if(flagWork>0)
+				{
+					report_qBikesPerService(listWorks, ARRAY_SIZE_WORK, listServices, ARRAY_SIZE_SRV, listBikes, ARRAY_SIZE_BIKES, "Rojo");
+				}
+				else
+					{
+						printf("\nNo se ingreso ningun trabajo\n");
+					}
+				break;
+
+			case 11:
+				if(flagWork>0)
+				{
+					report_wheelsWithMoreWorks(listWorks, ARRAY_SIZE_WORK, listWheel, ARRAY_SIZE_WHEELS);
+				}
+				else
+					{
+						printf("\nNo se ingreso ningun trabajo\n");
+					}
+				break;
+
+			case 12:
+				if(flagWork>0)
+				{
+					report_wheelsBikes(listWorks, ARRAY_SIZE_WORK, listServices, ARRAY_SIZE_SRV, listBikes, ARRAY_SIZE_BIKES, listWheel, ARRAY_SIZE_WHEELS);
 				}
 				else
 					{

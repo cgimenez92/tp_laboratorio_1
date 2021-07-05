@@ -26,6 +26,7 @@ int bike_freePosition(Bike* list, int len);
 int bike_freePositionIndex(Bike* list, int len, int* pIndex);
 int bike_searchBrand(Bike* list, int len, char* brandBike);
 int bike_searchId(Bike* list, int len, int id);
+int bike_sortArrayByBrand (Bike* list , int len, int order);
 //int bike_create(Bike* listBike, int lenBike);
 
 #endif /* BIKE_H_ */

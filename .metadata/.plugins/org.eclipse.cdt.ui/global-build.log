@@ -1,13 +1,5 @@
-19:52:56 **** Incremental Build of configuration Debug for project primer_parcial_laboratorio_1 ****
+03:34:09 **** Incremental Build of configuration Debug for project primer_parcial_laboratorio_1 ****
 Info: Internal Builder is used for build
 gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\reports.o" "..\\src\\reports.c" 
-..\src\reports.c: In function 'report_test':
-..\src\reports.c:104:6: warning: variable 'indexService' set but not used [-Wunused-but-set-variable]
-  104 |  int indexService;
-      |      ^~~~~~~~~~~~
 gcc -o primer_parcial_laboratorio_1.exe "src\\bike.o" "src\\controller.o" "src\\date.o" "src\\gets.o" "src\\is_valid.o" "src\\menu.o" "src\\primer_parcial_laboratorio_1.o" "src\\reports.o" "src\\service.o" "src\\wheel.o" "src\\work.o" 
-c:/mingw/bin/../lib/gcc/mingw32/9.2.0/../../../../mingw32/bin/ld.exe: cannot open output file primer_parcial_laboratorio_1.exe: Permission denied
-collect2.exe: error: ld returned 1 exit status
-19:52:59 **** Incremental Build of configuration Debug for project primer_parcial_laboratorio_1 ****
-Info: Internal Builder is used for build
-gcc -o primer_parcial_laboratorio_1.exe "src\\bike.o" "src\\controller.o" "src\\date.o" "src\\gets.o" "src\\is_valid.o" "src\\menu.o" "src\\primer_parcial_laboratorio_1.o" "src\\reports.o" "src\\service.o" "src\\wheel.o" "src\\work.o" 
+Info: Nothing to build for primer_parcial_laboratorio_1

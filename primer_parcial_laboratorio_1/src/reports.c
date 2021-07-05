@@ -10,6 +10,7 @@
 #include <string.h>
 #include "reports.h"
 #include "work.h"
+#include "gets.h"
 #include "service.h"
 
 int priceTotalPerService(Work* listWork, int lenWork, Service* listService, int lenService, float* totalValue)
@@ -33,6 +34,31 @@ int priceTotalPerService(Work* listWork, int lenWork, Service* listService, int 
 	return ret;
 }
 
+//G. Listado de todos los trabajos ordenados por marca de la bicicleta.
+//int report_worksByBrand(Work* listWork, int lenWork, Service* listService, int lenService, Bike* listBike, int lenBike, Wheel* listWheel, int lenWheel)
+//{
+//	int ret = -1;
+//	int j;
+//	int i;
+//
+//	if (listWork != NULL && lenWork>0 && listBike != NULL && lenBike>0)
+//	{
+//		bike_sortArrayByBrand(listBike, lenBike, DSC);
+//		for(i=0; i<lenBike; i++)
+//		{
+//			for(j=0; j<lenWork; j++)
+//			{
+//				if(listWork[j].isEmpty == FALSE && listBike[i].idBike == listWork[j].idBike)
+//				{
+//					work_printArray(listWork, lenWork, listService, lenService, listBike, lenBike, listWheel, lenWheel);
+//					ret = 0;
+//				}
+//			}
+//		}
+//		printf("\n");
+//	}
+//	return ret;
+//}
 
 //El o los servicios con más trabajos realizados.
 int maxServicePerWork (Work* listWork, int lenWork, int* maxValue)
@@ -89,7 +115,7 @@ int report_servicesWithMoreWorks (Work* listWork, int lenWork)
 
 			if(flagWorks == maxValue && listWork[i].idService != listWork[i+1].idService)
 			{
-				printf("************ ID: %d - Cantidad de publicaciones: %d ***********\n", listWork[i].idService, maxValue);
+				printf("************ ID de Servicio: %d - Cantidad de Trabajos: %d ***********\n", listWork[i].idService, maxValue);
 			}
 		}
 		ret = 0;
@@ -97,11 +123,12 @@ int report_servicesWithMoreWorks (Work* listWork, int lenWork)
 	return ret;
 }
 
-int report_test(Work* listWork, int lenWork, Service* listService, int lenService, Bike* listBike, int lenBike, Wheel* listWheel, int lenWheel)
+//Listado de servicios con los datos de las bicicletas que se lo realizaron.
+
+int report_servicesBikes(Work* listWork, int lenWork, Service* listService, int lenService, Bike* listBike, int lenBike, Wheel* listWheel, int lenWheel)
 {
 	int ret = -1;
 	int indexBike;
-	int indexService;
 	int indexWheel;
 
 	if (listWork != NULL && lenWork >0 && listService != NULL && lenService >0 && listBike != NULL && lenBike >0 && listWheel != NULL && lenWheel >0)
@@ -117,7 +144,6 @@ int report_test(Work* listWork, int lenWork, Service* listService, int lenServic
 				for (int j=0 ; j<lenWork ; j++)
 				{
 					indexBike = bike_searchId(listBike, lenBike, listWork[j].idBike);
-					indexService = service_searchId(listService, lenService, listWork[j].idService);
 					indexWheel = wheel_searchId(listWheel, lenWheel, listWork[j].idWheel);
 
 					if(listWork[j].isEmpty == FALSE && listService[i].id == listWork[j].idService)
@@ -126,6 +152,7 @@ int report_test(Work* listWork, int lenWork, Service* listService, int lenServic
 								listBike[indexBike].brandBike, listWheel[indexWheel].wheelSize, listBike[indexBike].colour);
 					}
 				}
+				//Ver de cambiar el segundo For por una funcion. Actualmente funciona.
 			}
 		}
 		ret = 0;
@@ -133,3 +160,152 @@ int report_test(Work* listWork, int lenWork, Service* listService, int lenServic
 return ret;
 }
 
+//La cantidad de biciletas de color Rojo que realizaron un servicio elegido por el usuario.
+
+int report_qBikesPerService(Work* listWork, int lenWork, Service* listService, int lenService, Bike* listBike, int lenBike, char* colour)
+{
+	int ret = -1;
+	int flagsBikes=0;
+	int i;
+	int indexService;
+	Work buffer;
+
+	if(!service_printArray(listService, lenService)
+		&& !getInt("\nIngrese ID de Service a analizar:", "Ingresar unicamente numeros", &buffer.idService, 2, MIN_ID_SERVICE, MAX_ID_SERVICE)
+		&& (indexService=service_searchId(listService, lenService, buffer.idService))>=0
+		&& !service_print(listService, indexService))
+	{
+		if(listWork != NULL && lenWork >0 && listService != NULL && lenService >0 && listBike != NULL && lenBike >0)
+		{
+			ret = 0;
+			for(i=0; i<lenWork; i++)
+			{
+				for(int j=0; j<lenBike; j++)
+				{
+					if(listWork[i].isEmpty == FALSE
+					  && listWork[i].idService == buffer.idService
+					  && listWork[i].idBike == listBike[j].idBike
+					  && strcmp(listBike[j].colour, colour) == 0)
+					{
+						flagsBikes++;
+					}
+				}
+			}
+		    printf("\n*******************************************************************\n");
+		    printf("******* CANTIDAD DE BICICLETAS COLOR ROJO CON SERVICE %s: %d ******\n", listService[indexService].description, flagsBikes);
+		    printf("*******************************************************************\n");
+			printf("*******************************************************************\n");
+
+			//Imprimir trabajo/s que hace referencia el Q.
+
+		}
+	}
+	return ret;
+}
+
+//Rodados con mas trabajos realizados
+
+int maxWorkPerWheelSize(Work* listWork, int lenWork, int* maxValue)
+{
+	int ret = -1;
+	int qWorks;
+	int i;
+	int j;
+
+	if(listWork!=NULL && lenWork>0)
+	{
+		for(i=0; i<lenWork ; i++)
+		{
+			qWorks = 0;
+			for(j=0; j<lenWork; j++)
+			{
+				if(listWork[i].idWheel == listWork[j].idWheel)
+				{
+					qWorks++;
+				}
+
+				if((!i || qWorks > *maxValue) && listWork[i].isEmpty ==  FALSE)
+				{
+					*maxValue = qWorks;
+					ret=0;
+				}
+			}
+		}
+	}
+	return ret;
+}
+
+int report_wheelsWithMoreWorks (Work* listWork, int lenWork, Wheel* listWheel, int lenWheel)
+{
+	int ret = -1;
+	int maxValue=0;
+	int flagWorks=0;
+	int indexWheel;
+	int i;
+	int j;
+
+	if(!maxWorkPerWheelSize(listWork, lenWork, &maxValue))
+	{
+		work_sortArrayByIdWheel(listWork, lenWork, ASC);
+		for(i=0; i<lenWork; i++)
+		{
+			flagWorks = 0;
+			for(j=0; j<lenWork; j++)
+			{
+				if(listWork[i].isEmpty == FALSE && listWork[i].idWheel == listWork[j].idWheel)
+				{
+					flagWorks++;
+				}
+			}
+
+			if(flagWorks == maxValue && listWork[i].idWheel != listWork[i+1].idWheel)
+			{
+				indexWheel=wheel_searchId(listWheel, lenWheel, listWork[i].idWheel);
+				printf("************ Rodado: %d - Cantidad de Trabajos: %d ***********\n", listWheel[indexWheel].wheelSize, maxValue);
+			}
+		}
+		ret = 0;
+	}
+	return ret;
+}
+
+//Cantidad de bicicletas atendidas por rodados
+
+int report_wheelsBikes(Work* listWork, int lenWork, Service* listService, int lenService, Bike* listBike, int lenBike, Wheel* listWheel, int lenWheel)
+{
+	int ret = -1;
+	int indexBike;
+	int indexWheel;
+	int flagWorks=0;
+
+	if (listWork != NULL && lenWork >0 && listService != NULL && lenService >0 && listBike != NULL && lenBike >0 && listWheel != NULL && lenWheel >0)
+	{
+		for (int i=0 ; i<lenWheel ; i++)
+		{
+			if(listWheel[i].isEmpty == FALSE)
+			{
+				flagWorks = 0;
+				printf("**************************************************\n");
+				printf("***************** ID %d - RODADO %d ***************\n", listWheel[i].idWheel, listWheel[i].wheelSize);
+				printf("**************************************************");
+
+				for (int j=0 ; j<lenWork ; j++)
+				{
+					indexBike = bike_searchId(listBike, lenBike, listWork[j].idBike);
+					indexWheel = wheel_searchId(listWheel, lenWheel, listWork[j].idWheel);
+
+					if(listWork[j].isEmpty == FALSE && listWheel[i].idWheel == listWork[j].idWheel)
+					{
+						printf("\nMarca Bicicleta: %s - Rodado: %d - Color: %s\n",
+								listBike[indexBike].brandBike, listWheel[indexWheel].wheelSize, listBike[indexBike].colour);
+						flagWorks++;
+					}
+				}
+				printf("\n******************* CANTIDAD %d *******************\n\n\n\n", flagWorks);
+				//Ver de cambiar el segundo For por una funcion. Actualmente funciona.
+			}
+		}
+		ret = 0;
+	}
+return ret;
+}

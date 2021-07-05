@@ -23,10 +23,10 @@ typedef struct
 	int idWheel;
 	int isEmpty;
 	int wheelSize;
-	char wheelCondition[STRING_SIZE_COND];
+	//Poner altura o edad recomendada para rodado ;)
 } Wheel;
 
-int wheel_force_init(Wheel* list, int len, int wheelSize, char* wheelCondition);
+int wheel_force_init(Wheel* list, int len, int wheelSize);
 int wheel_init(Wheel* list, int len);
 int wheel_printArray(Wheel* list , int len);
 int wheel_freePosition(Wheel* list, int len);

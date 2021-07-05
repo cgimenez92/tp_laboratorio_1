@@ -33,7 +33,7 @@ int wheel_freePosition(Wheel* list, int len)
 	return ret;
 }
 
-int wheel_force_init(Wheel* list, int len, int wheelSize, char* wheelCondition)
+int wheel_force_init(Wheel* list, int len, int wheelSize)
 {
     int ret = -1;
     int i;
@@ -45,7 +45,6 @@ int wheel_force_init(Wheel* list, int len, int wheelSize, char* wheelCondition)
         {
         	list[i].idWheel=wheel_newId();
         	list[i].isEmpty=FALSE;
-        	strncpy(list[i].wheelCondition, wheelCondition, STRING_SIZE_COND);
 			list[i].wheelSize=wheelSize;
         }
         ret = 0;
@@ -125,8 +124,8 @@ int wheel_printArray(Wheel* list , int len)
 		{
 			if(list[i].isEmpty == FALSE)
 			{
-				printf("\nID: %d - Rodado: %d - Condicion del rodado: %s",
-					  list[i].idWheel, list[i].wheelSize, list[i].wheelCondition);
+				printf("\nID: %d - Rodado: %d",
+					  list[i].idWheel, list[i].wheelSize);
 			}
 		}
 		ret = 0;
