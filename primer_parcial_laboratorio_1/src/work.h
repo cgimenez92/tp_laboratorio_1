@@ -49,6 +49,7 @@
 	int work_sortArray(Work* list, int len, int order, Bike* listBike, int lenBike);
 	int work_sortArrayByIdService (Work* list, int len, int order);
 	int work_sortArrayByIdWheel (Work* list, int len, int order);
+	int work_sortArrayByIdBike (Work* list, int len, int order);
 	int work_printArraySortByYear(Work* listWork, int lenWork, Service* listService, int lenService, Bike* listBike, int lenBike, Wheel* listWheel, int lenWheel);
 
 #endif /* WORK_H_ */

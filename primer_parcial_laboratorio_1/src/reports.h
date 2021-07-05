@@ -22,4 +22,6 @@ int report_qBikesPerService(Work* listWork, int lenWork, Service* listService, i
 int maxWorkPerWheelSize(Work* listWork, int lenWork, int* maxValue);
 int report_wheelsWithMoreWorks (Work* listWork, int lenWork, Wheel* listWheel, int lenWheel);
 int report_wheelsBikes(Work* listWork, int lenWork, Service* listService, int lenService, Bike* listBike, int lenBike, Wheel* listWheel, int lenWheel);
+int work_sortArrayByBrand (Work* listWork, int lenWork, Bike* listBike, int lenBike, int order);
+int work_printArraySortByBrand(Work* listWork, int lenWork, Service* listService, int lenService, Bike* listBike, int lenBike, Wheel* listWheel, int lenWheel);
 #endif /* REPORTS_H_ */

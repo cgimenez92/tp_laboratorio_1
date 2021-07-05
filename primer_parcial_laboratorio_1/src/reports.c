@@ -35,6 +35,71 @@ int priceTotalPerService(Work* listWork, int lenWork, Service* listService, int 
 }
 
 //G. Listado de todos los trabajos ordenados por marca de la bicicleta.
+
+int work_sortArrayByBrand (Work* listWork, int lenWork, Bike* listBike, int lenBike, int order)
+{
+	int ret = -1;
+	int flagSwap;
+	int indexBike;
+	int secondIndexBike;
+
+	if(listWork != NULL && lenWork > 0 && (order == 0 || order == 1))
+	{
+		work_sortArrayByIdBike (listWork, lenWork, order);
+		do
+		{
+			flagSwap = 0;
+			for(int i=0; i<lenBike; i++)
+			{
+				if(listBike[i].isEmpty==FALSE)
+				{
+					for(int j=0; j<lenWork; j++)
+					{
+						if(listWork[j].isEmpty==FALSE && listWork[j+1].isEmpty==FALSE)
+						{
+							indexBike = bike_searchId(listBike, lenBike, listWork[j].idBike);
+							secondIndexBike = bike_searchId(listBike, lenBike, listWork[j+1].idBike);
+
+							if (order == 0
+								&& listWork[j].idBike == listBike[i].idBike
+								&& strcmp(listBike[indexBike].brandBike, listBike[secondIndexBike].brandBike)>0)
+							{
+								work_swapPostionInArray (listWork, j);
+								flagSwap = 1;
+							}
+							else if ((order == 1
+									&& listWork[j].idBike == listBike[i].idBike
+									&& strcmp(listBike[indexBike].brandBike, listBike[secondIndexBike].brandBike)<0))
+							{
+								work_swapPostionInArray (listWork, j);
+								flagSwap = 1;
+							}
+						}
+					}
+				}
+			}
+		}while(flagSwap);
+		ret = 0;
+	}
+	return ret;
+}
+
+int work_printArraySortByBrand(Work* listWork, int lenWork, Service* listService, int lenService, Bike* listBike, int lenBike, Wheel* listWheel, int lenWheel)
+{
+	int ret = -1;
+
+	if(listWork != NULL && lenWork >0 && listService != NULL && lenService >0 && listBike != NULL && lenBike >0)
+	{
+		if(!work_sortArrayByBrand(listWork, lenWork, listBike, lenBike, ASC))
+		{
+
+			work_printArray(listWork, lenWork, listService, lenService, listBike, lenBike, listWheel, lenWheel);
+			ret =0;
+		}
+	}
+	return ret;
+}
+
 //int report_worksByBrand(Work* listWork, int lenWork, Service* listService, int lenService, Bike* listBike, int lenBike, Wheel* listWheel, int lenWheel)
 //{
 //	int ret = -1;

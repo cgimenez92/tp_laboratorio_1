@@ -117,7 +117,7 @@ int main(void)
 			case 7:
 				if(flagWork>0)
 				{
-					report_worksByBrand(listWorks, ARRAY_SIZE_WORK, listServices, ARRAY_SIZE_SRV, listBikes, ARRAY_SIZE_BIKES, listWheel, ARRAY_SIZE_WHEELS);
+					work_printArraySortByBrand(listWorks, ARRAY_SIZE_WORK, listServices, ARRAY_SIZE_SRV, listBikes, ARRAY_SIZE_BIKES, listWheel, ARRAY_SIZE_WHEELS);
 				}
 				else
 					{

@@ -389,6 +389,34 @@ int work_sortArrayByIdService (Work* list, int len, int order)
 	return ret;
 }
 
+int work_sortArrayByIdBike (Work* list, int len, int order)
+{
+	int ret = -1;
+	int flagSwap;
+
+	if(list != NULL && len > 0 && (order == 0 || order == 1))
+	{
+		do
+		{
+			flagSwap = 0;
+			for(int i=0; i<(len-1); i++)
+			{
+				if (order == 0 && list[i].idBike > list[i+1].idBike)
+				{
+					work_swapPostionInArray (list, i);
+					flagSwap = 1;
+				}
+				else if (order == 1 && list[i].idBike < list[i+1].idBike)
+					{
+						work_swapPostionInArray (list, i);
+						flagSwap = 1;
+					}
+			}
+		}while(flagSwap);
+		ret = 0;
+	}
+	return ret;
+}
 
 int work_sortArrayByIdWheel (Work* list, int len, int order)
 {
