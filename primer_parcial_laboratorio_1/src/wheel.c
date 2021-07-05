@@ -1,15 +1,11 @@
-#include "wheel.h"
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "gets.h"
-#include "menu.h"
+#include "wheel.h"
 
 static int wheel_newId (void);
 
 static int wheel_newId(void)
 {
-	static int id = 0;
+	static int id = MIN_ID_WHEEL;
 	id = id+1;
 	return id;
 }

@@ -1,11 +1,7 @@
-#include "work.h"
-#include "wheel.h"
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include "gets.h"
 #include "menu.h"
-#include "service.h"
+#include "work.h"
 
 static int work_newId (void);
 

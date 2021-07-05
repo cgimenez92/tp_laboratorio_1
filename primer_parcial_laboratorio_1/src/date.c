@@ -10,7 +10,7 @@ int isLeapYear(int year)
 int isValidDate(Date *validDate)
 {
 	int ret = 1;
-    //check range of year,month and day
+
     if (validDate->yyyy < MIN_YEAR || validDate->yyyy > MAX_YEAR)
     {
     	ret = -1;
@@ -41,7 +41,6 @@ int isValidDate(Date *validDate)
 				}
 			}
     }
-    //handle months which has only 30 days
     if ((validDate->mm == 4
     	|| validDate->mm == 6
 		|| validDate->mm == 9

@@ -10,8 +10,11 @@
 
 #define TRUE 1
 #define FALSE 0
+
 #include "work.h"
 #include "service.h"
+#include "bike.h"
+#include "wheel.h"
 
 int priceTotalPerService(Work* listWork, int lenWork, Service* listService, int lenService, float* totalValue);
 int report_worksByBrand(Work* listWork, int lenWork, Service* listService, int lenService, Bike* listBike, int lenBike, Wheel* listWheel, int lenWheel);
@@ -24,4 +27,5 @@ int report_wheelsWithMoreWorks (Work* listWork, int lenWork, Wheel* listWheel, i
 int report_wheelsBikes(Work* listWork, int lenWork, Service* listService, int lenService, Bike* listBike, int lenBike, Wheel* listWheel, int lenWheel);
 int work_sortArrayByBrand (Work* listWork, int lenWork, Bike* listBike, int lenBike, int order);
 int work_printArraySortByBrand(Work* listWork, int lenWork, Service* listService, int lenService, Bike* listBike, int lenBike, Wheel* listWheel, int lenWheel);
+
 #endif /* REPORTS_H_ */

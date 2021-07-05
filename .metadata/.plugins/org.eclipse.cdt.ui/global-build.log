@@ -1,41 +1,17 @@
-03:34:09 **** Incremental Build of configuration Debug for project primer_parcial_laboratorio_1 ****
+17:34:59 **** Incremental Build of configuration Debug for project primer_parcial_laboratorio_1 ****
 Info: Internal Builder is used for build
-gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\reports.o" "..\\src\\reports.c" 
-gcc -o primer_parcial_laboratorio_1.exe "src\\bike.o" "src\\controller.o" "src\\date.o" "src\\gets.o" "src\\is_valid.o" "src\\menu.o" "src\\primer_parcial_laboratorio_1.o" "src\\reports.o" "src\\service.o" "src\\wheel.o" "src\\work.o" 
-Info: Nothing to build for primer_parcial_laboratorio_1
-12:44:43 **** Incremental Build of configuration Debug for project primer_parcial_laboratorio_1 ****
-Info: Internal Builder is used for build
-gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\reports.o" "..\\src\\reports.c" 
-In file included from ..\src\reports.c:11:
-..\src\reports.h:25:1: warning: data definition has no type or storage class
-   25 | work_sortArrayByBrand (Work* listWork, int lenWork, Bike* listBike, int lenBike, int order);
-      | ^~~~~~~~~~~~~~~~~~~~~
-..\src\reports.h:25:1: warning: type defaults to 'int' in declaration of 'work_sortArrayByBrand' [-Wimplicit-int]
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\primer_parcial_laboratorio_1.o" "..\\src\\primer_parcial_laboratorio_1.c" 
+..\src\primer_parcial_laboratorio_1.c: In function 'main':
+..\src\primer_parcial_laboratorio_1.c:19:6: warning: variable 'indexNewWork' set but not used [-Wunused-but-set-variable]
+   19 |  int indexNewWork;
+      |      ^~~~~~~~~~~~
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\menu.o" "..\\src\\menu.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\gets.o" "..\\src\\gets.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\wheel.o" "..\\src\\wheel.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\work.o" "..\\src\\work.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\date.o" "..\\src\\date.c" 
 gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\service.o" "..\\src\\service.c" 
 gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\controller.o" "..\\src\\controller.c" 
-gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\work.o" "..\\src\\work.c" 
-gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\primer_parcial_laboratorio_1.o" "..\\src\\primer_parcial_laboratorio_1.c" 
-In file included from ..\src\primer_parcial_laboratorio_1.c:9:
-..\src\reports.h:25:1: warning: data definition has no type or storage class
-   25 | work_sortArrayByBrand (Work* listWork, int lenWork, Bike* listBike, int lenBike, int order);
-      | ^~~~~~~~~~~~~~~~~~~~~
-..\src\reports.h:25:1: warning: type defaults to 'int' in declaration of 'work_sortArrayByBrand' [-Wimplicit-int]
-..\src\primer_parcial_laboratorio_1.c: In function 'main':
-..\src\primer_parcial_laboratorio_1.c:18:6: warning: variable 'indexNewWork' set but not used [-Wunused-but-set-variable]
-   18 |  int indexNewWork;
-      |      ^~~~~~~~~~~~
-gcc -o primer_parcial_laboratorio_1.exe "src\\bike.o" "src\\controller.o" "src\\date.o" "src\\gets.o" "src\\is_valid.o" "src\\menu.o" "src\\primer_parcial_laboratorio_1.o" "src\\reports.o" "src\\service.o" "src\\wheel.o" "src\\work.o" 
-12:44:59 **** Incremental Build of configuration Debug for project primer_parcial_laboratorio_1 ****
-Info: Internal Builder is used for build
-gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\primer_parcial_laboratorio_1.o" "..\\src\\primer_parcial_laboratorio_1.c" 
-..\src\primer_parcial_laboratorio_1.c: In function 'main':
-..\src\primer_parcial_laboratorio_1.c:18:6: warning: variable 'indexNewWork' set but not used [-Wunused-but-set-variable]
-   18 |  int indexNewWork;
-      |      ^~~~~~~~~~~~
 gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\reports.o" "..\\src\\reports.c" 
 gcc -o primer_parcial_laboratorio_1.exe "src\\bike.o" "src\\controller.o" "src\\date.o" "src\\gets.o" "src\\is_valid.o" "src\\menu.o" "src\\primer_parcial_laboratorio_1.o" "src\\reports.o" "src\\service.o" "src\\wheel.o" "src\\work.o" 
 Info: Nothing to build for primer_parcial_laboratorio_1
-13:08:29 **** Incremental Build of configuration Debug for project primer_parcial_laboratorio_1 ****
-Info: Internal Builder is used for build
-gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\reports.o" "..\\src\\reports.c" 
-gcc -o primer_parcial_laboratorio_1.exe "src\\bike.o" "src\\controller.o" "src\\date.o" "src\\gets.o" "src\\is_valid.o" "src\\menu.o" "src\\primer_parcial_laboratorio_1.o" "src\\reports.o" "src\\service.o" "src\\wheel.o" "src\\work.o" 

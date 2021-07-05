@@ -4,14 +4,12 @@
  *  Created on: Jul 4, 2021
  *      Author: Administrador
  */
-
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
-#include "reports.h"
-#include "work.h"
+#include "bike.h"
 #include "gets.h"
-#include "service.h"
+#include "wheel.h"
+#include "reports.h"
 
 int priceTotalPerService(Work* listWork, int lenWork, Service* listService, int lenService, float* totalValue)
 {
@@ -99,31 +97,6 @@ int work_printArraySortByBrand(Work* listWork, int lenWork, Service* listService
 	}
 	return ret;
 }
-
-//int report_worksByBrand(Work* listWork, int lenWork, Service* listService, int lenService, Bike* listBike, int lenBike, Wheel* listWheel, int lenWheel)
-//{
-//	int ret = -1;
-//	int j;
-//	int i;
-//
-//	if (listWork != NULL && lenWork>0 && listBike != NULL && lenBike>0)
-//	{
-//		bike_sortArrayByBrand(listBike, lenBike, DSC);
-//		for(i=0; i<lenBike; i++)
-//		{
-//			for(j=0; j<lenWork; j++)
-//			{
-//				if(listWork[j].isEmpty == FALSE && listBike[i].idBike == listWork[j].idBike)
-//				{
-//					work_printArray(listWork, lenWork, listService, lenService, listBike, lenBike, listWheel, lenWheel);
-//					ret = 0;
-//				}
-//			}
-//		}
-//		printf("\n");
-//	}
-//	return ret;
-//}
 
 //El o los servicios con más trabajos realizados.
 int maxServicePerWork (Work* listWork, int lenWork, int* maxValue)

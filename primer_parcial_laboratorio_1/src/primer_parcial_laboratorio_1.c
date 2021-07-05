@@ -15,6 +15,7 @@ int main(void)
 	int flagWork=0;
 	int flagService=0;
 	int flagBike=0;
+	int flagWheel=0;
 	int indexNewWork;
 	float auxTotalValue;
 
@@ -30,7 +31,7 @@ int main(void)
 	Wheel listWheel[ARRAY_SIZE_WHEELS];
 	wheel_init(listWheel, ARRAY_SIZE_WHEELS);
 
-	controller_force_init(listServices, ARRAY_SIZE_SRV, listWorks, ARRAY_SIZE_WORK, listBikes, ARRAY_SIZE_BIKES, listWheel, ARRAY_SIZE_WHEELS, &flagWork, &flagService, &flagBike);
+	controller_force_init(listServices, ARRAY_SIZE_SRV, listWorks, ARRAY_SIZE_WORK, listBikes, ARRAY_SIZE_BIKES, listWheel, ARRAY_SIZE_WHEELS, &flagWork, &flagService, &flagBike, &flagWheel);
 
 	do
 	{

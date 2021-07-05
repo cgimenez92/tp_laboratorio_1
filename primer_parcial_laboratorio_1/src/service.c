@@ -1,9 +1,8 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 #include "gets.h"
 #include "menu.h"
-#include "work.h"
+#include "wheel.h"
 #include "service.h"
 
 static int service_newId (void);
@@ -50,93 +49,93 @@ int service_init(Service* list, int len)
 
 	return ret;
 }
-
-int service_create(Service* list, int len)
-{
-int ret = -1;
-int index;
-Service buffer;
-
-	if (list != NULL && len >0)
-	{
-		if (!service_freePositionIndex (list, len, &index))
-		{
-			if (!getString("Descripcion: ", "Supera a la cantidad de cartacteres permitidos", buffer.description, 2, STRING_SIZE) &&
-				!getFloat ("Ingrese precio: ", "Los caracteres ingresados no son un numero", &buffer.price, 2, 0, 1000000))
-			{
-				list[index]=buffer;
-				list[index].id=service_newId();
-				list[index].isEmpty=FALSE;
-				ret = index;
-			}
-			else
-				{
-					printf("\n/****Error - Finalizaron la cantidad de intentos****/\n");
-				}
-		}
-		else
-			{
-				printf("\n/****Error - No se encuentran espacios disponibles en el listado de clientes****/\n");
-			}
-	}
-	return ret;
-}
-
-
-int service_update(Service* list, int len)
-{
-	int ret = -1;
-	int aux;
-	int auxIndex;
-	char auxMenu='s';
-	Service buffer;
-
-	if(list != NULL && len > 0)
-	{
-		service_printArray(list, len);
-		if(!getInt("Ingrese el id del usuario que desea cambiar: ", "Ingresar unicamente numeros", &aux, 2, 1, 1000))
-		{
-			auxIndex=service_searchId(list, len, aux);
-			if(list[auxIndex].isEmpty==FALSE)
-			{
-				service_print(list,auxIndex);
-				buffer = list[auxIndex];
-				do
-				{
-					switch (menuChangeParameterService())
-					{
-						case 1:
-							if(!getString("Descripcion: ", "Supera a la cantidad de cartacteres permitidos", buffer.description, 2, STRING_SIZE))
-							{
-								strncpy(list[auxIndex].description, buffer.description, STRING_SIZE);
-							}
-							break;
-						case 2:
-							if(!getFloat ("Ingrese precio: ", "Los caracteres ingresados no son un numero", &buffer.price, 2, 0, 1000000))
-							{
-								list[auxIndex].price = buffer.price;
-							}
-							break;
-						case 4:
-							auxMenu='n';
-							break;
-
-						default:
-							printf("\nIngrese opcion correcta\n\n");
-							break;
-					}
-				}while (auxMenu=='s');
-				service_print(list,auxIndex);
-				ret = 0;
-			}
-		}
-		else
-			{
-				printf("\n/****Error - No se encuentran datos del Id ingresado****/\n");
-			}
-	}
-	return ret;
-}
+//
+//int service_create(Service* list, int len)
+//{
+//int ret = -1;
+//int index;
+//Service buffer;
+//
+//	if (list != NULL && len >0)
+//	{
+//		if (!service_freePositionIndex (list, len, &index))
+//		{
+//			if (!getString("Descripcion: ", "Supera a la cantidad de cartacteres permitidos", buffer.description, 2, STRING_SIZE) &&
+//				!getFloat ("Ingrese precio: ", "Los caracteres ingresados no son un numero", &buffer.price, 2, 0, 1000000))
+//			{
+//				list[index]=buffer;
+//				list[index].id=service_newId();
+//				list[index].isEmpty=FALSE;
+//				ret = index;
+//			}
+//			else
+//				{
+//					printf("\n/****Error - Finalizaron la cantidad de intentos****/\n");
+//				}
+//		}
+//		else
+//			{
+//				printf("\n/****Error - No se encuentran espacios disponibles en el listado de clientes****/\n");
+//			}
+//	}
+//	return ret;
+//}
+//
+//
+//int service_update(Service* list, int len)
+//{
+//	int ret = -1;
+//	int aux;
+//	int auxIndex;
+//	char auxMenu='s';
+//	Service buffer;
+//
+//	if(list != NULL && len > 0)
+//	{
+//		service_printArray(list, len);
+//		if(!getInt("Ingrese el id del usuario que desea cambiar: ", "Ingresar unicamente numeros", &aux, 2, 1, 1000))
+//		{
+//			auxIndex=service_searchId(list, len, aux);
+//			if(list[auxIndex].isEmpty==FALSE)
+//			{
+//				service_print(list,auxIndex);
+//				buffer = list[auxIndex];
+//				do
+//				{
+//					switch (menuChangeParameterService())
+//					{
+//						case 1:
+//							if(!getString("Descripcion: ", "Supera a la cantidad de cartacteres permitidos", buffer.description, 2, STRING_SIZE))
+//							{
+//								strncpy(list[auxIndex].description, buffer.description, STRING_SIZE);
+//							}
+//							break;
+//						case 2:
+//							if(!getFloat ("Ingrese precio: ", "Los caracteres ingresados no son un numero", &buffer.price, 2, 0, 1000000))
+//							{
+//								list[auxIndex].price = buffer.price;
+//							}
+//							break;
+//						case 4:
+//							auxMenu='n';
+//							break;
+//
+//						default:
+//							printf("\nIngrese opcion correcta\n\n");
+//							break;
+//					}
+//				}while (auxMenu=='s');
+//				service_print(list,auxIndex);
+//				ret = 0;
+//			}
+//		}
+//		else
+//			{
+//				printf("\n/****Error - No se encuentran datos del Id ingresado****/\n");
+//			}
+//	}
+//	return ret;
+//}
 
 int service_delete(Service* list, int len)
 {
